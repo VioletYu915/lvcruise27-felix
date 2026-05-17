@@ -1,0 +1,3331 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QGH1V0WJ00"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QGH1V0WJ00');
+</script>
+
+<!-- 🔥 Firebase Additions Start 🔥 -->
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+
+<script>
+  // Firebase VER configuration (to-REPLACE EACH TIME WITH PROJECT'S actual values)
+  const firebaseConfig = {
+  apiKey: "AIzaSyCkYfbw7swISftLy3zKXW5ppVCOygaD2m4",
+  authDomain: "felix-lvcruise26.firebaseapp.com",
+  projectId: "felix-lvcruise26",
+  storageBucket: "felix-lvcruise26.firebasestorage.app",
+  messagingSenderId: "510164878264",
+  appId: "1:510164878264:web:2459f94deda5b2ea3d854d"
+};
+
+// Initialize Firebase once and reuse references
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const db = firebaseApp.firestore();
+const auth = firebaseApp.auth();
+
+// Flush pending shares on load
+window.addEventListener('load', () => {
+  const pendingShares = parseInt(localStorage.getItem('pendingShares')) || 0;
+  if (pendingShares > 0) {
+    console.log('Flushing', pendingShares, 'pending shares');
+    recordShare().catch(e => console.error('Failed to flush shares:', e));
+  }
+});
+
+
+</script>
+<!-- 🔥 Firebase Additions End 🔥 -->
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>FELIX Post Generator | LVCRUISE27</title>
+  <meta name="description" content="Get quick sentences with tags for FELIX x LVCRUISE27 trending parties">
+  <meta name="keywords" content="Felix, LVCRUISE27, Post Generator, Kpop, Stray Kids, Louis Vuitton, Louis Vuitton Women's Cruise 2027 Show,SKZ, Sentence Bank, Twitter trends, Lee Felix, Louis Vuitton fashion show">
+
+  <!-- Social Media Thumbnail Meta Tags -->
+<meta property="og:title" content="FELIX Post Generator | LVCRUISE27">
+<meta property="og:description" content="Get quick sentences for FELIX x LVCRUISE27 trending parties">
+<meta property="og:image" content="https://i.postimg.cc/J4XwJdmg/twitter-card.png">
+<meta property="og:url" content="https://lvcruise27-felix.netlify.app/">
+<meta property="og:type" content="website">
+
+<!-- Twitter Card Meta Tags (for better Twitter display) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FELIX Post Generator | LVCRUISE27">
+<meta name="twitter:description" content="Get quick sentences for FELIX x LVCRUISE27 trending parties">
+<meta name="twitter:image" content="https://i.postimg.cc/J4XwJdmg/twitter-card.png">
+
+<link rel="preload" href="fonts/Montserrat-VariableFont_wght.ttf" as="font" type="font/ttf"  crossorigin="anonymous">
+<link rel="preload" href="fonts/Oswald-VariableFont_wght.ttf" as="font" type="font/ttf"  crossorigin="anonymous">
+<link rel="preload" href="fonts/Raleway-VariableFont_wght.ttf" as="font" type="font/ttf"  crossorigin="anonymous">
+<link rel="preload" href="images/chick.webp" as="image" fetchpriority="low">
+<link rel="icon" href="favicon.png" type="image/x-icon">
+
+<!-- delay loading the background image -->
+<link rel="preload" href="images/bg-felix.webp" as="image" fetchpriority="low">
+<!-- preload the sentences file -->
+<link rel="preload" href="data/lvcruise27-felix.csv" as="fetch">
+
+
+<style>
+  :root {
+    --gradient: linear-gradient(135deg, #ffdce5, #ebfbff);
+    --pink: #ff9cca;
+    --blue:rgb(85, 190, 255) ;
+    --box-bg: rgba(255, 255, 255, 0.9);
+    --text-color: #333;
+    --transition: all 0.3s ease;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+  scrollbar-gutter: stable;
+}
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: var(--gradient);
+    background-size: cover;
+    background-position: center;
+    transition: var(--transition);
+    color: var(--text-color);
+    min-height: 100vh; /* Ensure full viewport height */
+    position: relative; /* Added for proper stacking context */
+  }
+
+  body::after {
+  content: "";
+  display: block;
+  height: 120px;
+}
+
+  body.light-mode {
+    background: linear-gradient(135deg, #ffc6d0, #fff9fd, #ffc8e2ee);
+    background-attachment: fixed;
+  }
+
+/* Montserrat Regular */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; /* Critical for performance */
+}
+
+/* Oswald Medium */
+@font-face {
+  font-family: 'Oswald';
+  src: url('fonts/Oswald-VariableFont_wght.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Raleway Regular */
+@font-face {
+  font-family: 'Raleway';
+  src: url('fonts/Raleway-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  background-image: url('images/bg-felix.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center; /* Always anchors to top */
+  background-attachment: fixed; /* Key for static effect */
+  z-index: -1;
+  opacity: 0.85;
+  
+  /* Mobile optimization */
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Add color overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(270deg, rgba(248, 209, 241, 0.3), rgba(255, 255, 255, 0.3), rgba(241, 209, 248, 0.3), rgba(255, 255, 255, 0.3), rgba(248, 209, 241, 0.3));
+  background-size: 800% 800%;
+  animation: none;
+  z-index: -1;
+  pointer-events: none;
+}
+
+  .container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 60px; /* Add space for footer */
+  }
+
+  .box {
+    background: rgba(255, 255, 255, 0.6) !important;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: var(--transition);
+    margin: 20px 0;
+  }
+
+
+
+  h1 {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: inherit;
+  }
+
+/* ===== Subtitle Container ===== */
+.subtitle-container {
+  display: inline-block; /* Match subtitle's natural width */
+  max-width: 100%; /* Prevent overflow */
+  overflow-x: clip; /* Contain any potential overflow */
+  margin: 0 auto; /* Center if needed */
+  position: relative; /* For absolute positioning children */
+}
+
+/* ===== Subtitle Link container ===== */
+.subtitle-link {
+  display: inline-block;
+  text-decoration: none;
+  color: #ff81a1 !important; /* Permanent soft pink */
+  text-shadow: 0 0 8px rgba(255, 155, 179, 0.4);
+  transition: all 0.3s ease;
+
+  /* Continuous subtle pulse */
+  animation: subtitle-pulse 2s infinite ease-in-out;
+}
+
+/* ===== Pulse Animation ===== */
+@keyframes subtitle-pulse {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow: 0 0 8px rgba(255, 155, 179, 0.4);
+  }
+  50% {
+    transform: scale(1.02);
+    text-shadow: 0 0 12px rgba(255, 155, 179, 0.6);
+  }
+}
+
+/* ===== Mobile Touch Feedback ===== */
+.subtitle-link:active {
+  transform: scale(0.98);
+  animation: none; /* Pause pulse during tap */
+}
+
+/* ===== Preserve Emoji Styling ===== */
+.subtitle-link .subtitle::before,
+.subtitle-link .subtitle::after {
+  color: inherit; /* Make emojis match pink color */
+  animation: pulse 2s infinite; /* Keep original emoji animation */
+}
+
+.subtitle {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.2rem;
+  margin: 0 auto 20px auto;
+  color: inherit;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  width: fit-content;
+  position: relative;
+  padding: 0 30px; /* Increased padding for emojis */
+  /* new fix for subtitle container below */
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Explicitly define emoji display */
+.subtitle::before,
+.subtitle::after {
+  content: "✨";
+  display: inline-block;
+  margin: 0 5px;
+  font-size: 1em; /* Increased size */
+  animation: pulse 2s infinite;
+  vertical-align: middle;
+  font-style: normal; /* Reset any font styling */
+  line-height: 1; /* Prevent line-height issues */
+}
+
+/* Ensure animations work */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.8; } /* More noticeable pulse */
+  100% { transform: scale(1); opacity: 1; }
+}
+
+  #instructions {
+    margin-bottom: 20px;
+    font-size: 0.7rem;
+    text-align: left;
+    line-height: 1.4;
+  }
+
+  #instructions div {
+    margin-bottom: 5px;
+  }
+
+
+
+  #sentence {
+    font-size: 1.3rem;
+    margin: 30px 0;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.5;
+    padding: 10px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 10px;
+    transition: var(--transition);
+    white-space: pre-line;
+  }
+
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* Consistent spacing */
+    margin-top: 20px;
+    align-items: flex-start; /* Add this to keep buttons aligned */
+  }
+
+  .buttons button {
+    margin: 5px;
+    padding: 12px 24px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #fff;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+  }
+
+  .buttons button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .buttons button:active {
+    transform: translateY(0);
+  }
+
+  #generate-btn {
+    background-color: var(--pink);
+  }
+
+  #share-btn {
+    background-color: var(--blue);
+  }
+
+  .copy-notification {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 10px;
+    height: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .copy-notification.show {
+    opacity: 1;
+  }
+
+  .emoji {
+    position: absolute;
+    font-size: 24px;
+    animation: floatUp 1.5s ease forwards;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  @keyframes floatUp {
+    0% { opacity: 0; transform: translateY(10px); }
+    50% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-50px); }
+  }
+
+  .top-bar {
+    position: fixed;
+    top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 999;
+  }
+
+  .language-select, .dark-mode-toggle {
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    background-color: var(--box-bg);
+    transition: var(--transition);
+  }
+
+
+
+  .link-container {
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .external-link {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.6rem;
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block;
+    padding: 5px 8px;
+    border-radius: 8px;
+  }
+
+  .external-link:hover {
+    background-color: rgba(249, 197, 209, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .here-text {
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-underline-offset: 2px;
+  }
+
+
+  #link-text {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dashed currentColor;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-top: 20px;
+  }
+
+
+  .footer {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.85rem;
+    color: white;
+    z-index: 10; /* Ensure footer stays above other elements */
+  }
+
+  .external-logo {
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    width: 100px;
+    height: 50px;
+    background-image: url('images/external-logo.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.9;
+    z-index: 100;
+    transition: all 0.4s ease;
+    transform-origin: bottom left;
+    bottom: 25px; /* Slightly higher to accommodate bubble */
+    left: 20px;
+  }
+
+  .external-logo:hover {
+    opacity: 1;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 5px rgba(249, 197, 209, 0.5));
+  }
+
+  /* Share bubble styles - ALWAYS VISIBLE */
+.share-bubble {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-5px);
+  background: rgba(29, 161, 242, 0.9); /* Twitter blue */
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 12px;
+  white-space: nowrap;
+  opacity: 0.95;
+  pointer-events: none;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+  /* Small scale animation to attract attention */
+  animation: gentle-bounce 2s infinite;
+}
+
+
+/* Bubble arrow */
+.share-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(29, 161, 242, 0.9) transparent transparent transparent;
+}
+
+/* Subtle bounce animation */
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(-5px); }
+  50% { transform: translateX(-50%) translateY(-8px); }
+}
+
+  /* Floating Chick Container - Modified to prevent interference */
+  .floating-chick {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    width: 100px;
+    height: auto;
+    pointer-events: auto;
+    animation:
+      float-x 7s ease-in-out infinite,
+      float-y 4s ease-in-out infinite;
+    touch-action: manipulation;
+    transform-origin: center bottom;
+  }
+
+
+/* Add these new animations for better floating effect */
+@keyframes float-x {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-10px); }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.floating-chick:active .chick-img {
+  transform: scale(1.1);
+  transition: transform 0.1s ease;
+}
+
+/* Click Animation - Applied to container */
+.floating-chick:active {
+  animation: none; /* Disable float animation during click */
+}
+
+/* Optimize Animation Performance */
+.floating-chick, .emoji, .speech-bubble {
+  will-change: transform, opacity;
+}
+
+/* Chick Image Styles */
+.chick-img {
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  filter:
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))
+    drop-shadow(0 0 20px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 0 30px rgba(255, 215, 255, 0.7));
+  transition: transform 0.2s ease;
+  will-change: transform;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+  }
+
+  /* chicken's tips speech bubble */
+.speech-bubble {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.8) !important; /* Lower opacity white */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); /* Safari support */
+  padding: 15px 20px 25px;
+  border-radius: 20px;
+  width: 220px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  color: #333 !important; /* Force dark text */
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+/* Fix for mobile tap highlight */
+.speech-bubble * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+  /* chicken's tips speech bubble arrow */
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 15px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.8) transparent transparent transparent !important;
+}
+
+.close-bubble {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: transparent;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  color: #999;
+  padding: 2px 5px;
+  line-height: 1;
+  z-index: 1;
+  transition: color 0.2s ease;
+}
+
+.close-bubble:hover {
+  color: #ff6b6b;
+}
+
+
+
+  @media (max-width: 600px) {
+    .box {
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    .subtitle {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    /* Add these new properties */
+    padding: 0 15px; /* Reduced from 30px */
+    letter-spacing: 0.5px; /* Tighter spacing */
+  }
+
+  .subtitle::before,
+  .subtitle::after {
+    margin: 0 3px;
+    font-size: 0.8em;
+    /* New enhancements */
+    animation-duration: 1.8s; /* Slightly slower pulse */
+    vertical-align: -0.1em; /* Better alignment */
+  }
+
+    .external-logo {
+      width: 80px;
+    height: 40px;
+    bottom: 20px;
+    left: 15px;
+    }
+
+      /* More pronounced bounce on mobile */
+  @keyframes gentle-bounce {
+    0%, 100% { transform: translateX(-50%) translateY(-5px); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+  }
+
+    .external-logo:hover {
+      transform: scale(1.1);
+    }
+
+
+
+    #sentence {
+      font-size: 1.1rem;
+    }
+
+    .buttons button {
+    font-size: clamp(0.9rem, 4vw, 1rem) !important;
+    width: 120px !important;
+    padding: 12px 5px !important; /* Adjusted padding */
+    box-sizing: border-box;
+    }
+
+    #instructions {
+      font-size: 0.7rem;
+    }
+
+    #link-text {
+      font-size: 0.7rem;
+    }
+
+    .external-link {
+      font-size: 0.6rem;
+    }
+  }
+
+  /* Add this NEW media query BELOW your existing one */
+@media (max-width: 480px) {
+  .subtitle {
+    font-size: clamp(0.9rem, 3.8vw, 1rem); /* More responsive scaling */
+  }
+}
+
+  @media (max-width: 768px) and (orientation: portrait) {
+
+    .container {
+      padding-bottom: 100px; /* Extra space for mobile footer and chick */
+    }
+
+  body.light-mode {
+    background: linear-gradient(
+      160deg, /* Better angle for portrait */
+      #f8d1f1, #ffffff, #f1d1f8, #ffffff, #f8d1f1
+    );
+    background-size: 300% 300%; /* Tighter gradient for small screens */
+    animation: none;
+  }
+
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+
+/* Prevent text size adjustment */
+html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+/* Add this to prevent mobile address bar resize issues */
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+  body {
+    position: fixed;
+    width: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+
+ /* Prevent zoom on input */
+ select {
+    font-size: 16px; /* Prevent iOS zoom */
+  }
+
+  #username-modal {
+    z-index: 1002 !important; /* Force above everything on mobile */
+  }
+
+  #share-btn {
+    z-index: 10; /* Above chick but below leaderboard */
+    position: relative;
+  }
+
+  .share-bubble {
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+  }
+
+
+  .floating-chick {
+    width: 60px; /* Single dimension control */
+    /* Height will auto-scale proportionally */
+    bottom: 70px; /* Above the footer */
+    right: 15px;
+    z-index: 5; /* Below share button */
+    transform: translateZ(0); /* GPU layer promotion - remove later if problematic*/
+  }
+
+
+  .floating-chick:active .chick-img {
+    transform: scale(1.2); /* Slightly larger on mobile */
+  }
+
+.chick-img:active {
+  transform: scale(1.15); /* 15% bigger on mobile */
+    filter:
+      drop-shadow(0 2px 3px rgba(0,0,0,0.2))
+      drop-shadow(0 0 20px rgba(255, 240, 255, 1)) !important;
+  }
+
+  .chick-container {
+  aspect-ratio: 1/1; /* Perfect square */
+}
+
+  .speech-bubble {
+    width: 85vw;
+    max-width: 300px;
+    font-size: 0.7rem;
+    padding: 12px 15px 22px;
+    pointer-events: none; /* Allow clicks to pass through when hidden */
+  }
+
+  .speech-bubble.show {
+    pointer-events: auto; /* Only allow clicks when bubble is visible */
+  }
+
+  .close-bubble {
+    font-size: 14px;
+    padding: 3px;
+  }
+}
+
+  button:focus, select:focus {
+    outline: 2px solid #4d90fe;
+    outline-offset: 2px;
+  }
+
+   /* Leaderboard Button */
+.leaderboard-button {
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  background-color: var(--box-bg);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.leaderboard-button:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 215, 0, 0.3);
+}
+
+/* Leaderboard Popup */
+.leaderboard-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001; /* High enough to cover everything */
+  transform: translateZ(0); /* Creates reliable stacking context */
+}
+
+.leaderboard-content {
+  background: var(--box-bg);
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 90%;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative; /* Establishes stacking context for children */
+  /* No need for z-index since parent is already above everything */
+}
+
+.leaderboard-content h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+#leaderboard-list {
+  margin-bottom: 15px;
+}
+
+.leaderboard-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+/* Highlight current user in leaderboard */
+.leaderboard-item.highlight {
+  background-color: rgba(255, 215, 0, 0.1);
+  border-left: 3px solid var(--pink);
+  padding-left: 15px;
+  font-weight: bold;
+}
+
+.user-rank {
+  padding: 10px;
+  background: rgba(0,0,0,0.05);
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .leaderboard-content {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .leaderboard-item {
+    font-size: 0.9rem;
+  }
+}
+
+.loading, .empty, .error {
+  text-align: center;
+  padding: 15px;
+  color: #666;
+}
+
+.loading {
+  animation: pulse 1.5s infinite;
+}
+
+
+
+.leaderboard-item span:first-child {
+  flex: 1;
+  text-align: left;
+}
+
+.leaderboard-item span:last-child {
+  flex: 0 0 100px;
+  text-align: right;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: var(--box-bg);
+  padding: 25px;
+  border-radius: 15px;
+  max-width: 90%;
+  width: 400px;
+  text-align: center;
+}
+
+.modal h3 {
+  margin-top: 0;
+  color: var(--pink);
+}
+
+#username-input {
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#save-username {
+  background: var(--pink);
+  color: white;
+}
+
+#skip-username {
+  background: #eee;
+  color: #666;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+.edit-username {
+  background: none;
+  border: none;
+  color: var(--blue);
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  padding: 2px 5px;
+}
+
+.edit-username:hover {
+  text-decoration: underline;
+}
+
+.username-error {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  min-height: 1rem;
+}
+
+
+
+/* Style for the star decoration */
+.leaderboard-item.highlight span:first-child {
+  font-weight: bold;
+  color: var(--pink);
+}
+
+
+.leaderboard-header {
+  position: relative;
+  padding: 15px 40px 15px 20px; /* Added top padding */
+  border-bottom: 1px solid #eee; /* Optional visual separation */
+}
+
+.close-leaderboard-top {
+  position: absolute;
+  top: 15px;  /* Increased from 0 to add space */
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #666;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  z-index: 1; /* Ensure it stays above other elements */
+}
+
+.close-leaderboard-top:hover {
+  color: var(--pink);
+  background: rgba(0,0,0,0.05);
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .close-leaderboard-top {
+    top: 10px; /* Slightly less space on mobile */
+    right: 10px;
+    font-size: 1rem;
+    width: 25px;
+    height: 25px;
+  }
+
+  .leaderboard-header {
+    padding: 10px 35px 10px 15px; /* Adjusted for mobile */
+  }
+}
+
+/* Share ranking button styling */
+.share-ranking-btn {
+  display: block;
+  margin: 15px auto 0;
+  padding: 8px 20px;
+  background: #1DA1F2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.share-ranking-btn:hover {
+  background: #1991db;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.share-ranking-btn:active {
+  transform: translateY(0);
+}
+
+
+.leaderboard-content {
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+  padding: 0; /* Remove padding from content */
+}
+
+.leaderboard-list-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 20px; /* Add padding here instead */
+  margin: 10px 0;
+}
+
+/* Leaderboard Footer Styles */
+.leaderboard-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  background: rgba(255,255,255,0.9);
+  position: sticky;
+  bottom: 0;
+}
+
+/* 4. Add to CSS (ensures class overrides inline styles) */
+.leaderboard-active {
+  display: flex !important; /* Safety net */
+}
+
+#username-modal {
+  display: none; /* Initially hidden */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+  /* Add this line */
+  z-index: 1002; /* The key fix */
+}
+
+ /* Schedule styling below */
+/* Schedule styling */
+.schedule-container {
+  max-width: 700px; /* Match your main container width */
+  width: 90%; /* Match your main container width behavior */
+  margin: 30px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.schedule-title {
+  text-align: center;
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 600;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 10px 12px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.schedule-table .highlight {
+  background-color: rgba(255, 196, 223, 0.3);
+  font-weight: 600;
+  color: #ca2a77;
+}
+
+.schedule-table .countdown {
+  color: #2a72ca;
+}
+
+/* Mobile Transformation - Improved version */
+@media (max-width: 768px) {
+  .schedule-container {
+    width: 85%; /* Matches main container's side margins */
+    margin: 0 auto 30px; /* Adds bottom spacing */
+  }
+
+  .schedule-table {
+    display: table;
+    width: 100%;
+  }
+
+  .schedule-table thead {
+    display: table-header-group;
+  }
+
+  .schedule-table tbody {
+    display: table-row-group;
+  }
+
+  .schedule-table tr {
+    display: table-row;
+  }
+
+  .schedule-table th,
+  .schedule-table td {
+    display: table-cell;
+    padding: 10px 8px;
+    text-align: center !important; /* Overrides any left-align */
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  /* First column left-aligned */
+  .schedule-table tr td:first-child {
+    font-weight: 600;
+  }
+
+  /* Highlight styling */
+  .schedule-table .highlight {
+    background-color: rgba(255, 196, 223, 0.3);
+    color: #ca2a77;
+    font-weight: 600;
+  }
+
+  /* Countdown styling */
+  .schedule-table .countdown {
+    color: #2a72ca;
+    font-weight: 600;
+  }
+
+  /* Remove data-label attributes on mobile */
+  .schedule-table td::before {
+    content: none !important;
+  }
+  
+  .progress-container {
+    min-width: 80%; /* Prevent collapse */
+  }
+
+}
+
+/* Scroll indicator arrow styles below */
+.scroll-indicator {
+  text-align: center;
+  margin: 10px 0;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+  padding: 1em; /* Larger tap target */
+}
+
+.arrow {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 24px;
+  animation: bounce 6s infinite;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Adjust your schedule container's top margin */
+.schedule-container {
+  margin-top: 10px; /* Reduce if needed */
+}
+
+.user-rank-header {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: var(--pink);
+  font-size: 1rem;
+  text-align: left;
+}
+
+.user-rank div {
+  margin: 5px 0;
+  text-align: left;
+}
+
+.schedule-note {
+  font-size: 0.6rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color:#666;
+  padding-left:10px;
+}
+
+/* Share button container */
+.share-btn-container {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end; /* Right-align contents */
+}
+
+/* Progress bar container */
+.progress-container {
+  width: 80%; /* 80% of parent (share-btn-container) */
+  margin: 6px auto 0; /* Center horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center children */
+}
+
+/* Progress bar styling */
+.progress-bar {
+  width: 100%; /* Full width of container */
+  height: 8px;
+  background-color: #f0f0f0;
+  border: 1px solid #333;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+
+
+.progress-fill {
+  height: 100%;
+  background-color: #4CAF50; /* Green for achieved progress */
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* Target text */
+.progress-target {
+  font-size: 0.6rem;
+  color: rgba(29, 161, 242, 0.9);
+  text-align: center; /* Center text */
+  margin-top: 2px;
+  width: 100%; /* Match progress bar width */
+}
+
+/* Desktop hover tooltip */
+@media (hover: hover) {
+  .progress-target:hover::after {
+    content: "View your share progress in Leaderboard";
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-family: inherit;
+    white-space: nowrap;
+    margin-bottom: 8px;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+  }
+}
+
+/* Mobile tap indicator */
+.progress-target:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 400px) {
+  .buttons button {
+    font-size: 0.85rem !important;
+    padding: 10px 2px !important;
+  }
+}
+
+/* Android-specific button fixes */
+@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 0) {
+  .buttons button {
+    min-height: 55px !important; /* Minimum touch target size */
+    height: auto !important;
+    padding: 12px 8px !important;
+    line-height: 1.2 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Brave browser fix */
+  #share-btn {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+}
+
+
+</style>
+
+</head>
+
+
+
+<body class="light-mode">
+ <!-- Add these background elements first -->
+ <div class="background-image"></div>
+ <div class="overlay"></div>
+
+ <!-- Rest of your existing HTML -->
+  <div class="top-bar">
+    <button
+    class="leaderboard-button"
+    onclick="toggleLeaderboard()"
+    aria-label="Leaderboard"
+  >
+    🏆
+  </button>
+
+    <select id="language" class="language-select" onchange="changeLanguage()" aria-label="Select language">
+      <option value="en">🇺🇸 English</option>
+      <option value="ar">🇸🇦 العربية</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="de">🇩🇪 Deutsch</option>
+      <option value="hi">🇮🇳 हिन्दी</option>
+      <option value="id">🇮🇩 Bahasa Indonesia</option>
+      <option value="it">🇮🇹 Italiano</option>
+      <option value="ja">🇯🇵 日本語</option>
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="pt">🇵🇹 Português</option>
+      <option value="ru">🇷🇺 Русский</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="tl">🇵🇭 Tagalog</option>
+      <option value="th">🇹🇭 ภาษาไทย</option>
+      <option value="tr">🇹🇷 Türkçe</option>
+      <option value="vi">🇻🇳 Tiếng Việt</option>
+    </select>
+  </div>
+ <div class="container">
+   <div class="box">
+<h1 id="title">FELIX POST GENERATOR</h1>
+<div class="subtitle-container">
+  <a href="http://ig.me/j/AbYebwAp7XKDSfOp/" target="_blank" rel="noopener noreferrer" class="subtitle-link">
+    <span class="subtitle">FELIX 🚢 LVCRUISE27</span>
+  </a>
+</div>
+<div id="instructions">
+  <div>✅ Click 'Generate' to get new sentences → 'Share to X' (Twitter)</div>
+  <div>✅ Always REPOST🔁 others' posts/replies (IMPORTANT❣️ MUST 🔁)</div>
+  <div>✅ Alternate between RP🔁 & new posts / replies 💬</div>
+  <div>✅ Optional: Edit or add your own words (Don't spam emojis)</div>
+</div>
+  <div id="sentence">Click the button to generate a caption.</div>
+  
+  <div class="buttons">
+    <button id="generate-btn" onclick="generateSentence()">🐣 Generate</button>
+    <div class="share-btn-container">
+      <button id="share-btn" onclick="shareSentence()">📤 Share to X</button>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-target" 
+     onclick="toggleLeaderboard()" 
+     aria-label="View sharing progress in leaderboard">
+  🎯100x
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div id="copy-notification" class="copy-notification"></div>
+      <div class="link-container">
+        <a href="http://ig.me/j/AbYebwAp7XKDSfOp/" target="_blank" rel="noopener noreferrer" id="link-text" class="external-link">🔗 LINKS 👉 Click <span class="here-text">here</span> & engage with all official/media posts for #FELIXxLVCRUISE27.</a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" onclick="document.querySelector('.schedule-container')?.scrollIntoView({behavior:'smooth'})">
+     <div class="arrow">↓ ⏰ ↓</div>
+    </div>
+
+  </div>
+
+
+
+  <div class="schedule-container">
+    <h3 class="schedule-title">𝕏 Trending Party Schedule</h3>
+
+    <div class="schedule-note"><strong>Louis Vuitton Global House Ambassador FELIX </strong>is expected to attend the <strong>LV Women’s Cruise 2027 Show</strong> (May 20, 2026), presented by Creative Director Nicolas Ghesquière at the famous art museum <b>'The Frick Collection' in New York, United States</b>. <br>
+      <br> Please take note of the schedule, tips,... and set alarms to join X/Twitter trending parties & support FELIX at LVCRUISE27.</div>
+    <div class="schedule-table-wrapper">
+<table class="schedule-table">
+  <!-- Header Row -->
+  <thead>
+    <tr class="header-row">
+      <th>📆<br>Event</th>
+      <th>✈️<br>Departure</th>
+      <th>📍<br>Main Show</th>
+    </tr>
+  </thead>
+
+  <!-- Data Rows -->
+  <tbody>
+    <tr>
+      <td>🇰🇷 KST</td>
+      <td>May 18, 7:00 PM</td>
+      <td>May 20, 8:30 PM</td>
+    </tr>
+    <tr>
+      <td class="highlight">❣️ Your Timezone</td>
+      <td class="highlight" id="local-dep"></td>
+      <td class="highlight" id="local-main"></td>
+    </tr>
+    <tr>
+      <td>🕒 Countdown</td>
+      <td class="countdown" id="countdown-dep"></td>
+      <td class="countdown" id="countdown-main"></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+    <div class="schedule-note">📝 Timelines are projected based on past events. <strong>Tags & schedule are subject to change</strong> in case of emergencies. <br><br>🔔 <strong>Follow FELIX UNION fanbases & turn on notifications</strong> for real-time announcements.</div>
+  </div>
+
+  <div class="footer">© FELIX CHARTS </div>
+
+
+
+
+<script>
+
+  // Track generate button clicks
+document.getElementById('generate-btn').addEventListener('click', function() {
+  gtag('event', 'generate_click', {
+    'event_category': 'engagement',
+    'event_label': 'Generate Button Clicked'
+  });
+});
+
+// Track share button clicks
+document.getElementById('share-btn').addEventListener('click', function() {
+  gtag('event', 'share_click', {
+    'event_category': 'engagement',
+    'event_label': 'Share Button Clicked'
+  });
+});
+
+// Track language changes
+document.getElementById('language').addEventListener('change', function() {
+  gtag('event', 'language_change', {
+    'event_category': 'preferences',
+    'event_label': 'Language Changed to: ' + this.value
+  });
+});
+
+// 1. Add constant (place with other constants at top of file)
+const LEADERBOARD_ACTIVE_CLASS = 'leaderboard-active';
+
+const translations = {
+  en: {
+    title: "FELIX POST GENERATOR",
+    generate: "🐣 Generate",
+    share: "📤 Share to X",
+    defaultSentence: "Click the button to generate a random sentence.",
+    copied: "Copied to clipboard!",
+    instructions: [
+      "✅ Click 'Generate' to get new sentences → 'Share to X' (Twitter)",
+      "✅ Always REPOST🔁 others' posts/replies (IMPORTANT❣️ MUST 🔁🔁🔁)",
+      "✅ Alternate between RP🔁 & new posts / replies 💬",
+      "✅ Optional: Edit or add your own words (Don't spam emojis)"
+    ],
+    linkText: "🔗 LINKS 👉 Click <span class='here-text'>here</span> & engage with all official/media posts for #FELIXxLVCRUISE27.",
+    tips: [
+      "📝 This tool generates random sentences with tags for you to quickly create new posts for Felix on X/Twitter (& other platforms) ⤷",
+      "📌 ALWAYS REPOST & reply to others' replies 🔁 MUST RT 🐥!🔁🔁🔁 Reposts count towards post volume too! (Twitter/X) ⤷",
+      "🎯 Goal: 100 posts/hour (X/Twitter) ⤷",
+      "🔥 X/Twitter trends prioritize high post volume within a short time. During X trending parties, quickly make as many posts as possible! ⤷",
+      "💡 You should alternate between RP 🔁 & making new posts, quoting posts & replies 💬 ⤷",
+      "💡 You can use the sentences on other platforms besides X (like Instagram) - just remove the taglines ⤷",
+      "✍️ Feel free to edit or add your own words/sentences. This tool only provides quick suggestions so you can make posts more conveniently ♡ ⤷",
+      "Click 🏆 to see Leaderboard & how many times you shared to X/Twitter. ⤷",
+      "🐣 Thank you for supporting FELIX 💖 FIGHTING! 🔁🔁 "
+    ],
+    leaderboard: {
+    title: "🏆 Leaderboard 🏆",
+    loading: "Loading leaderboard...",
+    noData: "No data available yet",
+    yourDisplayName: "Your display name",
+    yourRank: "Your rank",
+    yourShares: "Your shares",
+    setDisplayName: "✏️ Set display name",
+    changeName: "✏️ Change name",
+    noSharesYet: "You haven't shared yet!",
+    shareToAppear: "Share posts to appear here",
+    shares: "shares",
+    error: "Failed to load leaderboard",
+    you: "You",
+    user: "User",
+    shareButton: "🐦 Share My Ranking",
+    modalTitle: "Set Your Display Name (X/Twitter @username)",
+    modalDescription: "Choose how you'll appear on the leaderboard:",
+    modalPlaceholder: "Your display name (e.g., Pixie123)",
+    saveButton: "Save ✔",
+    skipButton: "Skip ✖"
+    }
+  },
+  ko: {
+    title: "필릭스 포스트 생성기",
+    generate: "🐣 생성하기",
+    share: "📤 X에 공유",
+    defaultSentence: "버튼을 클릭해 무작위 문장을 생성하세요.",
+    copied: "클립보드에 복사되었습니다!",
+    instructions: [
+      "✅ '생성하기' 클릭 → 새 문장 생성 후 'X에 공유'",
+      "✅ 다른 분들의 게시물/댓글 꼭 리포스트🔁 (중요❣️ 필수 🔁)",
+      "✅ 리포스트🔁와 새 게시물/댓글 번갈아 작성 💬",
+      "✅ 선택사항: 문구 수정 가능 (이모지 과도 사용 자제)"
+    ],
+    linkText: "🔗 링크 👉 <span class='here-text'>여기</span> 클릭 후 #FELIXxLVCRUISE27 공식/미디어 게시물에 참여해주세요.",
+    tips: [
+      "📝 이 도구는 X/트위터(및 다른 플랫폼)에서 필릭스 관련 게시물을 빠르게 만들 수 있도록 태그가 포함된 문장을 생성합니다. ⤷",
+      "📌 다른 분들의 게시물과 댓글은 꼭 리포스트🔁하고 답글 달기! 리트윗 필수 🐥! 리포스트도 게시물 수에 포함됩니다! (X/트위터) ⤷",
+      "🎯 목표: 시간당 100개 게시물 (X/트위터) ⤷",
+      "🔥 X/트위터 트렌드는 짧은 시간 내 많은 게시물을 우선시합니다. 트렌딩 기간 동안 가능한 한 많이 게시하세요! ⤷",
+      "💡 리포스트🔁와 새 게시물 작성, 게시물 및 댓글 인용을 번갈아 가며 진행하세요 💬 ⤷",
+      "💡 X 외 다른 플랫폼(인스타그램 등)에서도 사용 가능 ⤷",
+      "✍️ 문구를 수정하거나 추가해도 좋습니다. 이 도구는 편리하게 게시물을 작성할 수 있도록 제안을 제공할 뿐입니다 ♡ ⤷",
+      "🏆을 클릭하면 리더보드와 X/트위터에 공유한 횟수를 확인할 수 있습니다. ⤷",
+      "🐣 필릭스 응원해주셔서 감사합니다 💖 화이팅! "
+    ],
+    leaderboard: {
+    title: "🏆 리더보드 🏆",
+    loading: "리더보드 불러오는 중...",
+    noData: "아직 데이터가 없습니다",
+    yourDisplayName: "표시 이름",
+    yourRank: "나의 순위",
+    yourShares: "공유 횟수",
+    setDisplayName: "✏️ 닉네임 설정",
+    changeName: "✏️ 닉네임 변경",
+    noSharesYet: "아직 공유하지 않았습니다!",
+    shareToAppear: "공유하면 여기에 표시됩니다",
+    shares: "회 공유",
+    error: "리더보드 불러오기 실패",
+    you: "당신",
+    user: "유저",
+    shareButton: "🐦 내 순위 공유하기",
+    modalTitle: "표시 이름 설정 (X/Twitter @username)",
+    modalDescription: "리더보드에 표시될 이름을 선택하세요:",
+    modalPlaceholder: "표시 이름 (예: Pixie123)",
+    saveButton: "저장 ✔",
+    skipButton: "건너뛰기 ✖"
+    }
+  },
+  ja: {
+    title: "フィリックス投稿ツール",
+    generate: "🐣 生成する",
+    share: "📤 Xで共有",
+    defaultSentence: "ボタンをクリックしてランダムな文章を生成します。",
+    copied: "クリップボードにコピーしました！",
+    instructions: [
+      "✅ '生成する'をクリック → 新しい文章を'Xで共有'",
+      "✅ 他の方の投稿/返信は必ずリポスト🔁 (重要❣️ 必須 🔁)",
+      "✅ リポスト🔁と新規投稿/返信を交互に 💬",
+      "✅ 任意: 文章を編集可能 (絵文字の多用は控えて)"
+    ],
+    linkText: "🔗 リンク 👉 <span class='here-text'>こちら</span>をクリックし #FELIXxLVCRUISE27 公式/メディア投稿へ参加",
+    tips: [
+      "📝 このツールはX/ツイッター(や他のプラットフォーム)でフィリックスの投稿を簡単に作成できるよう、タグ付きの文章を生成します。 ⤷",
+      "📌 他の方の投稿や返信は必ずリポスト🔁し、返信しましょう！RT必須 🐥！リポストも投稿数に含まれます！(X/ツイッター) ⤷",
+      "🎯 目標: 1時間に100投稿 (X/ツイッター) ⤷",
+      "🔥 X/ツイッターのトレンドは短期間での大量投稿が重要です。トレンド期間中はできるだけ多く投稿しましょう！ ⤷",
+      "💡 リポスト🔁と新規投稿、投稿や返信の引用を交互に行いましょう 💬 ⤷",
+      "💡 X以外のプラットフォーム(インスタグラム等)でも使用可能 ⤷",
+      "✍️ 文章を編集したり追加したり自由です。このツールは便利に投稿できるよう提案するものです ♡ ⤷",
+      "🏆をクリックすると、ランキングとX/Twitterへのシェア回数が表示されます。 ⤷",
+      "🐣 フィリックスを応援してくれてありがとう 💖 ファイト！ "
+    ],
+    leaderboard: {
+    title: "🏆 ランキング 🏆",
+    loading: "ランキングを読み込み中...",
+    noData: "まだデータがありません",
+    yourDisplayName: "表示名",
+    yourRank: "あなたの順位",
+    yourShares: "シェア数",
+    setDisplayName: "✏️ 表示名を設定",
+    changeName: "✏️ 名前を変更",
+    noSharesYet: "まだシェアしていません!",
+    shareToAppear: "シェアするとここに表示されます",
+    shares: "回シェア",
+    error: "ランキングの読み込みに失敗しました",
+    you: "あなた",
+    user: "ユーザー",
+    shareButton: "🐦 ランキングを共有",
+    modalTitle: "表示名を設定 (X/Twitter @username)",
+    modalDescription: "リーダーボードに表示される名前を選択:",
+    modalPlaceholder: "表示名 (例: Pixie123)",
+    saveButton: "保存 ✔",
+    skipButton: "スキップ ✖"
+    }
+  },
+  zh: {
+    title: "Felix文案生成器",
+    generate: "🐣 生成",
+    share: "📤 分享到X",
+    defaultSentence: "点击按钮生成随机文案。",
+    copied: "已复制到剪贴板！",
+    instructions: [
+      "✅ 点击'生成'获取新文案 → '分享到X'",
+      "✅ 务必转发🔁他人的帖子/回复 (重要❣️ 必须 🔁)",
+      "✅ 转发🔁和新帖/回复交替进行 💬",
+      "✅ 可选: 可修改或添加文字 (避免滥用表情)"
+    ],
+    linkText: "🔗 链接 👉 点击<span class='here-text'>这里</span>参与 #FELIXxLVCRUISE27 官方/媒体帖子",
+    tips: [
+      "📝 本工具可生成带标签的随机文案，助您快速为Felix在X/推特(及其他平台)创建新帖 ⤷",
+      "📌 务必转发🔁并回复他人推文！必须RT 🐥！转发也算发帖量！(X/推特) ⤷",
+      "🎯 目标: 每小时100帖 (X/推特) ⤷",
+      "🔥 X/推特趋势看重短时间内高发帖量。趋势活动期间请尽快多发帖！ ⤷",
+      "💡 您应交替进行转发🔁和新发帖、引用推文及回复 💬 ⤷",
+      "💡 文案也可用于X外其他平台(如Ins) ⤷",
+      "✍️ 可自由编辑或添加内容。本工具仅提供快速建议让发帖更便利 ♡ ⤷",
+      "点击🏆查看排行榜及你在X/Twitter上的分享次数。 ⤷",
+      "🐣 感谢支持Felix 💖 加油！ "
+    ],
+    leaderboard: {
+    title: "🏆 排行榜 🏆",
+    loading: "正在加载排行榜...",
+    noData: "暂无数据",
+    yourDisplayName: "你的显示名称",
+    yourRank: "你的排名",
+    yourShares: "你的分享数",
+    setDisplayName: "✏️ 设置显示名称",
+    changeName: "✏️ 更改名称",
+    noSharesYet: "你还没有分享过!",
+    shareToAppear: "分享后将会出现在这里",
+    shares: "次分享",
+    error: "加载排行榜失败",
+    you: "你",
+    user: "用户",
+    shareButton: "🐦 分享我的排名",
+    modalTitle: "设置显示名称 (X/Twitter @username)",
+    modalDescription: "选择您在排行榜上的显示名称:",
+    modalPlaceholder: "您的显示名称 (例如: Pixie123)",
+    saveButton: "保存 ✔",
+    skipButton: "跳过 ✖"
+    }
+  },
+
+
+  fr: {
+    title: "GÉNÉRATEUR DE POSTS FELIX",
+    generate: "🐣 Générer",
+    share: "📤 Partager sur X",
+    defaultSentence: "Cliquez pour générer une phrase aléatoire.",
+    copied: "Copié dans le presse-papiers !",
+    instructions: [
+      "✅ Cliquez 'Générer' → 'Partager sur X' (Twitter)",
+      "✅ REPOSTEZ🔁 toujours les publications des autres (IMPORTANT❣️ OBLIGATOIRE 🔁)",
+      "✅ Alternez REPOSTS🔁 et nouvelles publications/réponses 💬",
+      "✅ Optionnel: Modifiez ou ajoutez du texte (Pas trop d'émojis)"
+    ],
+    linkText: "🔗 LIENS 👉 Cliquez <span class='here-text'>ici</span> pour les publications officielles #FELIXxLVCRUISE27.",
+    tips: [
+      "📝 Cet outil génère des phrases avec hashtags pour créer rapidement des posts pour Felix sur X/Twitter (et autres plateformes). ⤷",
+      "📌 REPOSTEZ🔁 et répondez aux autres ! RT OBLIGATOIRES 🐥 ! Les reposts comptent aussi ! (X/Twitter) ⤷",
+      "🎯 Objectif : 100 posts/heure (X/Twitter) ⤷",
+      "🔥 Les tendances X/Twitter privilégient le volume. Pendant les trends, postez un maximum ! ⤷",
+      "💡 Alternez REPOSTS🔁, nouveaux posts et citations 💬 ⤷",
+      "💡 Utilisable sur d'autres plateformes (Instagram...)  ⤷",
+      "✍️ Modifiez librement les phrases. Cet outil fournit juste des suggestions ♡ ⤷",
+      "Cliquez 🏆 pour voir le classement et combien de fois vous avez partagé sur X/Twitter. ⤷",
+      "🐣 Merci de soutenir FELIX 💖 FIGHTING !"
+    ],
+    leaderboard: {
+    title: "🏆 Classement 🏆",
+    loading: "Chargement du classement...",
+    noData: "Aucune donnée disponible",
+    yourDisplayName: "Votre pseudo",
+    yourRank: "Votre position",
+    yourShares: "Vos partages",
+    setDisplayName: "✏️ Choisir un pseudo",
+    changeName: "✏️ Modifier le pseudo",
+    noSharesYet: "Vous n'avez rien partagé !",
+    shareToAppear: "Partagez pour apparaître ici",
+    shares: "partages",
+    error: "Erreur de chargement",
+    you: "Vous",
+    user: "Utilisateur",
+    shareButton: "🐦 Partager mon classement",
+    modalTitle: "Définir votre nom d'affichage (X/Twitter @username)",
+    modalDescription: "Choisissez comment vous apparaîtrez dans le classement:",
+    modalPlaceholder: "Votre nom d'affichage (ex: Pixie123)",
+    saveButton: "Enregistrer ✔",
+    skipButton: "Passer ✖"
+    }
+  },
+
+  es: {
+    title: "GENERADOR DE POSTS FELIX",
+    generate: "🐣 Generar",
+    share: "📤 Compartir en X",
+    defaultSentence: "Haz clic para generar una frase aleatoria.",
+    copied: "¡Copiado al portapapeles!",
+    instructions: [
+      "✅ Haz clic 'Generar' → 'Compartir en X' (Twitter)",
+      "✅ Siempre REPOSTEA🔁 publicaciones de otros (IMPORTANTE❣️ OBLIGATORIO 🔁)",
+      "✅ Alterna REPOSTS🔁 y nuevas publicaciones/respuestas 💬",
+      "✅ Opcional: Edita o añade texto (No abuses de emojis)"
+    ],
+    linkText: "🔗 ENLACES 👉 Haz clic <span class='here-text'>aquí</span> para publicaciones oficiales #FELIXxLVCRUISE27.",
+    tips: [
+      "📝 Esta herramienta genera frases con hashtags para crear posts rápidos para Felix en X/Twitter (y otras plataformas). ⤷",
+      "📌 ¡Siempre REPOSTEA🔁 y responde a otros! ¡RT OBLIGATORIO 🐥! ¡Los reposts también cuentan! (X/Twitter) ⤷",
+      "🎯 Objetivo: 100 posts/hora (X/Twitter) ⤷",
+      "🔥 Las tendencias en X/Twitter priorizan volumen. ¡Durante trends, publica lo máximo posible! ⤷",
+      "💡 Alterna REPOSTS🔁, nuevos posts y citas 💬 ⤷",
+      "💡 Usable en otras plataformas (Instagram...)  ⤷",
+      "✍️ Edita libremente. Esta herramienta solo da sugerencias ♡ ⤷",
+      "Haz clic 🏆 para ver el ranking y cuántas veces has compartido en X/Twitter. ⤷",
+      "🐣 ¡Gracias por apoyar a FELIX 💖 FIGHTING!"
+    ],
+    leaderboard: {
+    title: "🏆 Clasificación 🏆",
+    loading: "Cargando clasificación...",
+    noData: "No hay datos aún",
+    yourDisplayName: "Tu nombre",
+    yourRank: "Tu posición",
+    yourShares: "Tus compartidos",
+    setDisplayName: "✏️ Establecer nombre",
+    changeName: "✏️ Cambiar nombre",
+    noSharesYet: "¡No has compartido aún!",
+    shareToAppear: "Comparte para aparecer aquí",
+    shares: "veces compartido",
+    error: "Error al cargar clasificación",
+    you: "Tú",
+    user: "Usuario",
+    shareButton: "🐦 Compartir Mi Posición",
+    modalTitle: "Establecer Nombre para Mostrar (X/Twitter @username)",
+    modalDescription: "Elige cómo aparecerás en el ranking:",
+    modalPlaceholder: "Tu nombre para mostrar (ej: Pixie123)",
+    saveButton: "Guardar ✔",
+    skipButton: "Saltar ✖"
+    }
+  },
+
+  de: {
+    title: "FELIX POST GENERATOR",
+    generate: "🐣 Generieren",
+    share: "📤 Auf X teilen",
+    defaultSentence: "Klicken Sie, um einen zufälligen Satz zu generieren.",
+    copied: "In die Zwischenablage kopiert!",
+    instructions: [
+      "✅ Klicken Sie 'Generieren' → 'Auf X teilen' (Twitter)",
+      "✅ Immer REPOSTEN🔁 (WICHTIG❣️ MUSS 🔁)",
+      "✅ Abwechselnd REPOSTS🔁 und neue Posts/Antworten 💬",
+      "✅ Optional: Text anpassen (Nicht zu viele Emojis)"
+    ],
+    linkText: "🔗 LINKS 👉 Klicken Sie <span class='here-text'>hier</span> für offizielle Posts #FELIXxLVCRUISE27.",
+    tips: [
+      "📝 Dieses Tool generiert Sätze mit Hashtags für schnelle Posts über Felix auf X/Twitter (und anderen Plattformen). ⤷",
+      "📌 UNBEDINGT REPOSTEN🔁 & auf andere antworten! MUSS RT 🐥! Reposts zählen auch! (X/Twitter) ⤷",
+      "🎯 Ziel: 100 Posts/Stunde (X/Twitter) ⤷",
+      "🔥 X/Twitter-Trends bevorzugen hohe Post-Zahlen. Während Trends so viel posten wie möglich! ⤷",
+      "💡 Abwechselnd REPOSTS🔁, neue Posts und Zitate 💬 ⤷",
+      "💡 Auch auf anderen Plattformen nutzbar (Instagram...)  ⤷",
+      "✍️ Sie können die Sätze bearbeiten. Dieses Tool gibt nur Vorschläge ♡ ⤷",
+      "Klicke 🏆, um die Bestenliste und deine X/Twitter-Shares zu sehen. ⤷",
+      "🐣 Danke für eure Unterstützung für FELIX 💖 FIGHTING!"
+    ],
+    leaderboard: {
+    title: "🏆 Bestenliste 🏆",
+    loading: "Lade Bestenliste...",
+    noData: "Noch keine Daten verfügbar",
+    yourDisplayName: "Dein Name",
+    yourRank: "Dein Rang",
+    yourShares: "Deine Shares",
+    setDisplayName: "✏️ Namen festlegen",
+    changeName: "✏️ Namen ändern",
+    noSharesYet: "Du hast noch nichts geteilt!",
+    shareToAppear: "Teile etwas, um aufzutauchen",
+    shares: "Shares",
+    error: "Bestenliste konnte nicht geladen werden",
+    you: "Du",
+    user: "Nutzer",
+    shareButton: "🐦 Meine Platzierung teilen",
+    modalTitle: "Anzeigenamen festlegen (X/Twitter @username)",
+    modalDescription: "Wählen Sie, wie Sie in der Bestenliste erscheinen:",
+    modalPlaceholder: "Ihr Anzeigename (z.B. Pixie123)",
+    saveButton: "Speichern ✔",
+    skipButton: "Überspringen ✖"
+    }
+  },
+
+  hi: {
+    title: "फेलिक्स पोस्ट जनरेटर",
+    generate: "🐣 बनाएं",
+    share: "📤 X पर शेयर करें",
+    defaultSentence: "रैंडम वाक्य बनाने के लिए क्लिक करें।",
+    copied: "क्लिपबोर्ड पर कॉपी किया गया!",
+    instructions: [
+      "✅ 'बनाएं' क्लिक करें → 'X पर शेयर' (Twitter)",
+      "✅ हमेशा दूसरों के पोस्ट रिपोस्ट🔁 करें (जरूरी❣️ जरूर 🔁)",
+      "✅ रिपोस्ट🔁 और नए पोस्ट/रिप्लाई बारी-बारी से करें 💬",
+      "✅ वैकल्पिक: अपने शब्द जोड़ें (ज्यादा इमोजी नहीं)"
+    ],
+    linkText: "🔗 लिंक 👉 <span class='here-text'>यहां</span> क्लिक करके #FELIXxLVCRUISE27 के ऑफिशियल पोस्ट्स में शामिल हों ",
+    tips: [
+      "📝 यह टूल X/ट्विटर (और अन्य प्लेटफॉर्म) पर फेलिक्स के लिए पोस्ट बनाने में मदद करता है। ⤷",
+      "📌 हमेशा रिपोस्ट🔁 करें और दूसरों को जवाब दें! RT जरूरी 🐥! रिपोस्ट भी गिनती होते हैं! (X/ट्विटर) ⤷",
+      "🎯 लक्ष्य: 100 पोस्ट/घंटा (X/ट्विटर)",
+      "🔥 X/ट्विटर ट्रेंड्स में ज्यादा पोस्ट जरूरी। ट्रेंडिंग के दौरान जितना हो सके पोस्ट करें! ⤷",
+      "💡 रिपोस्ट🔁 और नए पोस्ट बारी-बारी से करें 💬 ⤷",
+      "💡 इंस्टाग्राम जैसे प्लेटफॉर्म पर भी इस्तेमाल कर सकते हैं ⤷",
+      "✍️ आप वाक्यों को एडिट कर सकते हैं। यह टूल सिर्फ सुझाव देता है ♡ ⤷",
+      "X/Twitter पर आपने कितनी बार शेयर किया है, यह देखने के लिए 🏆 पर क्लिक करें। ⤷",
+      "🐣 फेलिक्स को सपोर्ट करने के लिए धन्यवाद 💖 फाइटिंग!"
+    ],
+    leaderboard: {
+    title: "🏆 लीडरबोर्ड 🏆",
+    loading: "लीडरबोर्ड लोड हो रहा है...",
+    noData: "अभी कोई डेटा नहीं है",
+    yourDisplayName: "आपका नाम",
+    yourRank: "आपकी रैंक",
+    yourShares: "आपके शेयर्स",
+    setDisplayName: "✏️ नाम सेट करें",
+    changeName: "✏️ नाम बदलें",
+    noSharesYet: "आपने अभी तक शेयर नहीं किया!",
+    shareToAppear: "शेयर करने पर यहाँ दिखाई देंगे",
+    shares: "बार शेयर किया",
+    error: "लीडरबोर्ड लोड नहीं हो पाया",
+    you: "आप",
+    user: "यूजर",
+    shareButton: "🐦 मेरी रैंकिंग शेयर करें",
+    modalTitle: "अपना प्रदर्शन नाम सेट करें (X/Twitter @username)",
+    modalDescription: "चुनें कि आप लीडरबोर्ड पर कैसे दिखाई देंगे:",
+    modalPlaceholder: "आपका प्रदर्शन नाम (जैसे: Pixie123)",
+    saveButton: "सहेजें ✔",
+    skipButton: "छोड़ें ✖"
+    }
+  },
+
+  id: {
+    title: "PEMBUAT POSTINGAN FELIX",
+    generate: "🐣 Buat",
+    share: "📤 Bagikan ke X",
+    defaultSentence: "Klik untuk membuat kalimat acak.",
+    copied: "Disalin ke clipboard!",
+    instructions: [
+      "✅ Klik 'Buat' → 'Bagikan ke X' (Twitter)",
+      "✅ Harus REPOST🔁 postingan orang lain (PENTING❣️ WAJIB 🔁)",
+      "✅ Bergantian antara REPOST🔁 dan posting/balasan baru 💬",
+      "✅ Opsional: Edit atau tambahkan kata (Jangan terlalu banyak emoji)"
+    ],
+    linkText: "🔗 LINK 👉 Klik <span class='here-text'>di sini</span> untuk posting resmi #FELIXxLVCRUISE27",
+    tips: [
+      "📝 Alat ini membuat kalimat dengan tag untuk posting Felix di X/Twitter (& platform lain). ⤷",
+      "📌 HARUS REPOST🔁 & balas posting orang lain! RT WAJIB 🐥! Repost juga dihitung! (X/Twitter) ⤷",
+      "🎯 Target: 100 post/jam (X/Twitter) ⤷",
+      "🔥 Trend X/Twitter butuh banyak post dalam waktu singkat. Saat trending, post sebanyak mungkin! ⤷",
+      "💡 Bergantian antara REPOST🔁 dan buat post baru 💬 ⤷",
+      "💡 Bisa dipakai di platform lain (Instagram)  ⤷",
+      "✍️ Boleh edit atau tambahkan kata. Alat ini hanya memberi saran ♡ ⤷",
+      "Klik 🏆 untuk melihat Leaderboard & berapa kali kamu membagikan ke X/Twitter. ⤷",
+      "🐣 Terima kasih dukung FELIX 💖 SEMANGAT!"
+    ],
+    leaderboard: {
+    title: "🏆 Peringkat 🏆",
+    loading: "Memuat peringkat...",
+    noData: "Belum ada data",
+    yourDisplayName: "Nama Anda",
+    yourRank: "Peringkatmu",
+    yourShares: "Share-mu",
+    setDisplayName: "✏️ Atur nama tampilan",
+    changeName: "✏️ Ubah nama",
+    noSharesYet: "Kamu belum share apapun!",
+    shareToAppear: "Share untuk muncul di sini",
+    shares: "share",
+    error: "Gagal memuat peringkat",
+    you: "Kamu",
+    user: "Pengguna",
+    shareButton: "🐦 Bagikan Peringkat Saya",
+    modalTitle: "Atur Nama Tampilan (X/Twitter @username)",
+    modalDescription: "Pilih bagaimana Anda akan muncul di papan peringkat:",
+    modalPlaceholder: "Nama tampilan Anda (contoh: Pixie123)",
+    saveButton: "Simpan ✔",
+    skipButton: "Lewati ✖"
+    }
+  },
+
+  pt: {
+    title: "GERADOR DE POSTS FELIX",
+    generate: "🐣 Gerar",
+    share: "📤 Compartilhar no X",
+    defaultSentence: "Clique para gerar uma frase aleatória.",
+    copied: "Copiado para a área de transferência!",
+    instructions: [
+      "✅ Clique 'Gerar' → 'Compartilhar no X' (Twitter)",
+      "✅ Sempre REPOSTE🔁 posts de outros (IMPORTANTE❣️ OBRIGATÓRIO 🔁)",
+      "✅ Alterne REPOSTS🔁 e novos posts/respostas 💬",
+      "✅ Opcional: Edite ou adicione texto (Não exagere em emojis)"
+    ],
+    linkText: "🔗 LINKS 👉 Clique <span class='here-text'>aqui</span> para posts oficiais #FELIXxLVCRUISE27",
+    tips: [
+      "📝 Esta ferramenta gera frases com hashtags para posts rápidos sobre Felix no X/Twitter (e outras plataformas). ⤷",
+      "📌 SEMPRE REPOSTE🔁 e responda outros! RT OBRIGATÓRIO 🐥! Reposts também contam! (X/Twitter) ⤷",
+      "🎯 Meta: 100 posts/hora (X/Twitter) ⤷",
+      "🔥 Trends no X/Twitter priorizam volume. Durante trends, poste o máximo possível! ⤷",
+      "💡 Alterne entre REPOSTS🔁 e novos posts/citações 💬 ⤷",
+      "💡 Use em outras plataformas (Instagram...) ⤷",
+      "✍️ Sinta-se livre para editar. Esta ferramenta só dá sugestões ♡ ⤷",
+      "Clique 🏆 para ver o Ranking e quantas vezes você compartilhou no X/Twitter. ⤷",
+      "🐣 Obrigado por apoiar FELIX 💖 VAMOS LÁ!"
+    ],
+    leaderboard: {
+    title: "🏆 Ranking 🏆",
+    loading: "Carregando ranking...",
+    noData: "Sem dados disponíveis",
+    yourDisplayName: "Seu nome",
+    yourRank: "Sua posição",
+    yourShares: "Seus compartilhamentos",
+    setDisplayName: "✏️ Definir nome",
+    changeName: "✏️ Alterar nome",
+    noSharesYet: "Você ainda não compartilhou!",
+    shareToAppear: "Compartilhe para aparecer aqui",
+    shares: "compartilhamentos",
+    error: "Falha ao carregar ranking",
+    you: "Você",
+    user: "Usuário",
+    shareButton: "🐦 Compartilhar Minha Posição",
+    modalTitle: "Definir Seu Nome de Exibição (X/Twitter @username)",
+    modalDescription: "Escolha como aparecerá no ranking:",
+    modalPlaceholder: "Seu nome de exibição (ex: Pixie123)",
+    saveButton: "Salvar ✔",
+    skipButton: "Pular ✖"
+    }
+  },
+
+  ru: {
+    title: "ГЕНЕРАТОР ПОСТОВ FELIX",
+    generate: "🐣 Создать",
+    share: "📤 Поделиться в X",
+    defaultSentence: "Нажмите, чтобы создать случайное предложение.",
+    copied: "Скопировано в буфер обмена!",
+    instructions: [
+      "✅ Нажмите 'Создать' → 'Поделиться в X' (Twitter)",
+      "✅ Всегда РЕПОСТИТЕ🔁 посты других (ВАЖНО❣️ ОБЯЗАТЕЛЬНО 🔁)",
+      "✅ Чередуйте РЕПОСТЫ🔁 и новые посты/ответы 💬",
+      "✅ По желанию: Редактируйте текст (Не злоупотребляйте эмодзи)"
+    ],
+    linkText: "🔗 ССЫЛКИ 👉 Нажмите <span class='here-text'>здесь</span> для официальных постов #FELIXxLVCRUISE27",
+    tips: [
+      "📝 Этот инструмент создает посты с хэштегами для Felix в X/Twitter (и других платформах). ⤷",
+      "📌 ОБЯЗАТЕЛЬНО РЕПОСТИТЕ🔁 и отвечайте другим! РТ ОБЯЗАТЕЛЕН 🐥! Репосты тоже считаются! (X/Twitter) ⤷",
+      "🎯 Цель: 100 постов/час (X/Twitter) ⤷",
+      "🔥 Тренды X/Twitter зависят от количества постов. Во время трендов публикуйтесь как можно чаще! ⤷",
+      "💡 Чередуйте РЕПОСТЫ🔁 и новые посты/цитаты 💬 ⤷",
+      "💡 Можно использовать в Instagram и др.  ⤷",
+      "✍️ Можете редактировать текст. Этот инструмент только предлагает варианты ♡ ⤷",
+      "Нажмите 🏆, чтобы увидеть рейтинг и сколько раз вы поделились в X/Twitter. ⤷",
+      "🐣 Спасибо за поддержку FELIX 💖 ВПЕРЁД!"
+    ],
+    leaderboard: {
+    title: "🏆 Рейтинг 🏆",
+    loading: "Загрузка рейтинга...",
+    noData: "Нет данных",
+    yourDisplayName: "Ваше имя",
+    yourRank: "Ваше место",
+    yourShares: "Ваши репосты",
+    setDisplayName: "✏️ Установить имя",
+    changeName: "✏️ Изменить имя",
+    noSharesYet: "Вы еще не делали репосты!",
+    shareToAppear: "Делитесь, чтобы появиться здесь",
+    shares: "репостов",
+    error: "Ошибка загрузки рейтинга",
+    you: "Вы",
+    user: "Пользователь",
+    shareButton: "🐦 Поделиться моим рейтингом",
+    modalTitle: "Установить отображаемое имя (X/Twitter @username)",
+    modalDescription: "Выберите, как вы будете отображаться в таблице лидеров:",
+    modalPlaceholder: "Ваше отображаемое имя (например: Pixie123)",
+    saveButton: "Сохранить ✔",
+    skipButton: "Пропустить ✖"
+    }
+  },
+
+  tl: {
+    title: "PAGGUWA NG POST NI FELIX",
+    generate: "🐣 Gumawa",
+    share: "📤 I-share sa X",
+    defaultSentence: "I-click para gumawa ng random na sentence.",
+    copied: "Nakopya sa clipboard!",
+    instructions: [
+      "✅ I-click 'Gumawa' → 'I-share sa X' (Twitter)",
+      "✅ Laging i-REPOST🔁 ang posts ng iba (IMPORTANTE❣️ DAPAT 🔁)",
+      "✅ Paghalinhin ang REPOST🔁 at bagong posts/replies 💬",
+      "✅ Opsiyonal: Baguhin o dagdagan ng sariling words (Huwag masyadong maraming emoji)"
+    ],
+    linkText: "🔗 MGA LINK 👉 I-click <span class='here-text'>dito</span> para sa official posts #FELIXxLVCRUISE27",
+    tips: [
+      "📝 Ang tool na ito ay gumagawa ng mga sentence na may tags para mabilis kang makapag-post para kay Felix sa X/Twitter (at iba pang platforms). ⤷",
+      "📌 LAGING i-REPOST🔁 at reply sa iba! DAPAT RT 🐥! Kasama rin ang reposts sa bilang! (X/Twitter) ⤷",
+      "🎯 Goal: 100 posts/hour (X/Twitter) ⤷",
+      "🔥 Ang trends sa X/Twitter ay kailangan ng maraming posts. Habang trending, mag-post nang madami! ⤷",
+      "💡 Paghalinhin ang REPOST🔁 at paggawa ng bagong posts 💬 ⤷",
+      "💡 Pwede rin sa ibang platforms (Instagram) ⤷",
+      "✍️ Pwedeng baguhin ang mga sentence. Ang tool na ito ay nagbibigay lang ng suggestions ♡ ⤷",
+      "I-click 🏆 para makita ang Leaderboard at ilang beses kang nag-share sa X/Twitter. ⤷",
+      "🐣 Salamat sa pagsuporta kay FELIX 💖 LABAN!"
+    ],
+    leaderboard: {
+    title: "🏆 Leaderboard 🏆",
+    loading: "Naglo-load ng leaderboard...",
+    noData: "Walang data pa",
+    yourDisplayName: "Iyong pangalan",
+    yourRank: "Iyong ranggo",
+    yourShares: "Iyong mga share",
+    setDisplayName: "✏️ Maglagay ng pangalan",
+    changeName: "✏️ Baguhin ang pangalan",
+    noSharesYet: "Wala ka pang nashare!",
+    shareToAppear: "Mag-share para lumabas dito",
+    shares: "beses na share",
+    error: "Hindi naload ang leaderboard",
+    you: "Ikaw",
+    user: "User",
+    shareButton: "🐦 I-share ang Aking Ranggo",
+    modalTitle: "Itakda ang Iyong Display Name (X/Twitter @username)",
+    modalDescription: "Piliin kung paano ka lalabas sa leaderboard:",
+    modalPlaceholder: "Ang iyong display name (hal: Pixie123)",
+    saveButton: "I-save ✔",
+    skipButton: "Laktawan ✖"
+    }
+  },
+
+  th: {
+    title: "เครื่องมือสร้างโพสต์ FELIX",
+    generate: "🐣 สร้าง",
+    share: "📤 แชร์บน X",
+    defaultSentence: "คลิกเพื่อสร้างประโยคแบบสุ่ม",
+    copied: "คัดลอกไปยังคลิปบอร์ดแล้ว!",
+    instructions: [
+      "✅ คลิก 'สร้าง' → 'แชร์บน X' (Twitter)",
+      "✅ ต้องรีโพสต์🔁 โพสต์ของคนอื่น (สำคัญ❣️ ต้องทำ 🔁)",
+      "✅ สลับระหว่างรีโพสต์🔁 กับโพสต์/ตอบกลับใหม่ 💬",
+      "✅ เลือกได้: แก้ไขหรือเพิ่มคำ (อย่าใช้อิโมจิมากเกินไป)"
+    ],
+    linkText: "🔗 ลิงก์ 👉 คลิก<span class='here-text'>ที่นี่</span> สำหรับโพสต์ทางการ #FELIXxLVCRUISE27",
+    tips: [
+      "📝 เครื่องมือนี้สร้างประโยคพร้อมแฮชแท็กสำหรับโพสต์เกี่ยวกับ Felix บน X/Twitter (และแพลตฟอร์มอื่นๆ) ⤷",
+      "📌 ต้องรีโพสต์🔁 และตอบกลับโพสต์อื่น! ต้อง RT 🐥! รีโพสต์ก็นับ! (X/Twitter) ⤷",
+      "🎯 เป้าหมาย: 100 โพสต์/ชั่วโมง (X/Twitter) ⤷",
+      "🔥 เทรนด์ X/Twitter ต้องการโพสต์จำนวนมากในช่วงเวลาสั้นๆ ขณะกำลังเทรนด์ ให้โพสต์ให้มากที่สุด! ⤷",
+      "💡 สลับระหว่างรีโพสต์🔁 กับการโพสต์ใหม่ 💬 ⤷",
+      "💡 ใช้บนแพลตฟอร์มอื่นได้ (Instagram) ⤷",
+      "✍️ แก้ไขประโยคได้ตามต้องการ เครื่องมือนี้แค่ให้คำแนะนำ ♡ ⤷",
+      "คลิก 🏆 เพื่อดูกระดานคะแนนและจำนวนครั้งที่คุณแชร์ใน X/Twitter ⤷",
+      "🐣 ขอบคุณที่สนับสนุน FELIX 💖 สู้ๆ!"
+    ],
+    leaderboard: {
+    title: "🏆 กระดานคะแนน 🏆",
+    loading: "กำลังโหลดกระดานคะแนน...",
+    noData: "ยังไม่มีข้อมูล",
+    yourDisplayName: "ชื่อของคุณ",
+    yourRank: "อันดับของคุณ",
+    yourShares: "จำนวนแชร์ของคุณ",
+    setDisplayName: "✏️ ตั้งชื่อแสดง",
+    changeName: "✏️ เปลี่ยนชื่อ",
+    noSharesYet: "คุณยังไม่ได้แชร์!",
+    shareToAppear: "แชร์เพื่อแสดงในนี้",
+    shares: "ครั้ง",
+    error: "โหลดกระดานคะแนนไม่สำเร็จ",
+    you: "คุณ",
+    user: "ผู้ใช้",
+    shareButton: "🐦 แชร์อันดับของฉัน",
+    modalTitle: "ตั้งชื่อแสดงผล (X/Twitter @username)",
+    modalDescription: "เลือกวิธีที่คุณจะปรากฏบนกระดานคะแนน:",
+    modalPlaceholder: "ชื่อแสดงผลของคุณ (เช่น Pixie123)",
+    saveButton: "บันทึก ✔",
+    skipButton: "ข้าม ✖"
+    }
+  },
+
+  tr: {
+    title: "FELIX POST OLUŞTURUCU",
+    generate: "🐣 Oluştur",
+    share: "📤 X'te Paylaş",
+    defaultSentence: "Rastgele cümle oluşturmak için tıklayın.",
+    copied: "Panoya kopyalandı!",
+    instructions: [
+      "✅ 'Oluştur' → 'X'te Paylaş' (Twitter)",
+      "✅ Mutlaka REPOST🔁 yapın (ÖNEMLİ❣️ ŞART 🔁)",
+      "✅ REPOST🔁 ve yeni gönderiler/yanıtlar arasında geçiş yapın 💬",
+      "✅ İsteğe bağlı: Metni düzenleyin (Çok fazla emoji kullanmayın)"
+    ],
+    linkText: "🔗 LİNKLER 👉 Resmi gönderiler için <span class='here-text'>tıklayın</span> #FELIXxLVCRUISE27",
+    tips: [
+      "📝 Bu araç, X/Twitter'da Felix için hızlı post oluşturmanızı sağlar. ⤷",
+      "📌 MUTLAKA REPOST🔁 yapın ve diğerlerine yanıt verin! RT ŞART 🐥! Repostlar da sayılır! (X/Twitter) ⤷",
+      "🎯 Hedef: Saatte 100 gönderi (X/Twitter) ⤷",
+      "🔥 X/Twitter trendleri yüksek gönderi sayısını sever. Trend zamanlarında çok post atın! ⤷",
+      "💡 REPOST🔁 ve yeni gönderiler arasında geçiş yapın 💬 ⤷",
+      "💡 Instagram gibi platformlarda da kullanabilirsiniz  ⤷",
+      "✍️ Metinleri düzenleyebilirsiniz. Bu araç sadece öneri sunar ♡ ⤷",
+      "Lider tablosunu ve X/Twitter'da kaç kez paylaştığınızı görmek için 🏆'a tıklayın. ⤷",
+      "🐣 FELIX'e destek için teşekkürler 💖 HADİ BAKALIM!"
+    ],
+    leaderboard: {
+    title: "🏆 Lider Tablosu 🏆",
+    loading: "Lider tablosu yükleniyor...",
+    noData: "Henüz veri yok",
+    yourDisplayName: "Adınız",
+    yourRank: "Sıralaman",
+    yourShares: "Paylaşımların",
+    setDisplayName: "✏️ İsim belirle",
+    changeName: "✏️ İsmi değiştir",
+    noSharesYet: "Henüz paylaşım yapmadın!",
+    shareToAppear: "Burada görünmek için paylaş",
+    shares: "paylaşım",
+    error: "Lider tablosu yüklenemedi",
+    you: "Sen",
+    user: "Kullanıcı",
+    shareButton: "🐦 Sıralamamı Paylaş",
+    modalTitle: "Görünen Adınızı Ayarlayın (X/Twitter @username)",
+    modalDescription: "Lider tablosunda nasıl görüneceğinizi seçin:",
+    modalPlaceholder: "Görünen adınız (örn: Pixie123)",
+    saveButton: "Kaydet ✔",
+    skipButton: "Atla ✖"
+    }
+  },
+
+  vi: {
+    title: "CÔNG CỤ TẠO POST CHO FELIX",
+    generate: "🐣 Tạo",
+    share: "📤 Chia sẻ lên X",
+    defaultSentence: "Nhấn để tạo câu ngẫu nhiên.",
+    copied: "Đã sao chép vào bộ nhớ tạm!",
+    instructions: [
+      "✅ Nhấn 'Tạo' → 'Chia sẻ lên X' (Twitter)",
+      "✅ Luôn REPOST🔁 bài của người khác (QUAN TRỌNG❣️ PHẢI 🔁)",
+      "✅ Xen kẽ REPOST🔁 và bài mới/trả lời 💬",
+      "✅ Tùy chọn: Chỉnh sửa hoặc thêm chữ (Đừng dùng quá nhiều emoji)"
+    ],
+    linkText: "🔗 LIÊN KẾT 👉 Nhấn <span class='here-text'>vào đây</span> để xem post #FELIXxLVCRUISE27 cần tương tác" ,
+    tips: [
+      "📝 Công cụ này tạo câu có sẵn tag để đăng bài về Felix trên X/Twitter (và nền tảng khác). ⤷",
+      "📌 LUÔN REPOST🔁 & trả lời bài khác! BẮT BUỘC RT 🐥!  ⤷",
+      "🎯 Mục tiêu: 100 post/giờ (X/Twitter) ⤷",
+      "🔥 Xu hướng X/Twitter ưu tiên số lượng bài tăng nhanh. Khi đang trend, đăng càng nhiều càng tốt! ⤷",
+      "💡 Xen kẽ REPOST🔁 và bài mới/trích dẫn 💬 ⤷",
+      "💡 Dùng được trên Instagram... - chỉ cần chú ý tag ⤷",
+      "✍️ Có thể chỉnh sửa nội dung. Công cụ này chỉ gợi ý ♡ ⤷",
+      "Nhấn 🏆 để xem Bảng Xếp Hạng và số lần bạn đã chia sẻ lên X/Twitter. ⤷",
+      "🐣 Cảm ơn bạn ủng hộ FELIX 💖 FIGHTING!"
+    ],
+    leaderboard: {
+    title: "🏆 Bảng Xếp Hạng 🏆",
+    loading: "Đang tải bảng xếp hạng...",
+    noData: "Chưa có dữ liệu",
+    yourDisplayName: "Tên của bạn",
+    yourRank: "Thứ hạng của bạn",
+    yourShares: "Lượt chia sẻ của bạn",
+    setDisplayName: "✏️ Đặt tên hiển thị",
+    changeName: "✏️ Đổi tên",
+    noSharesYet: "Bạn chưa chia sẻ gì!",
+    shareToAppear: "Chia sẻ để xuất hiện ở đây",
+    shares: "lượt chia sẻ",
+    error: "Lỗi tải bảng xếp hạng",
+    you: "Bạn",
+    user: "Người dùng",
+    shareButton: "🐦 Chia Sẻ Xếp Hạng",
+    modalTitle: "Đặt Tên Hiển Thị (X/Twitter @username)",
+    modalDescription: "Chọn cách bạn sẽ xuất hiện trên bảng xếp hạng:",
+    modalPlaceholder: "Tên hiển thị của bạn (vd: Pixie123)",
+    saveButton: "Lưu ✔",
+    skipButton: "Bỏ Qua ✖"
+    }
+  },
+
+  ar: {
+    title: "منشورات فيليكس - مولد",
+    generate: "🐣 توليد",
+    share: "📤 مشاركة على X",
+    defaultSentence: "انقر لإنشاء جملة عشوائية.",
+    copied: "تم النسخ إلى الحافظة!",
+    instructions: [
+      "✅ انقر 'توليد' → 'مشاركة على X' (تويتر)",
+      "✅ أعد نشر🔁 منشورات الآخرين (مهم❣️ إجباري 🔁)",
+      "✅ تناوب بين إعادة النشر🔁 والمنشورات/الردود الجديدة 💬",
+      "✅ اختياري: عدّل النص أو أضف كلمات (لا تكثر من الإيموجي)"
+    ],
+    linkText: "🔗 روابط 👉 انقر <span class='here-text'>هنا</span> للمنشورات الرسمية #FELIXxLVCRUISE27",
+    tips: [
+      "📝 هذه الأداة تولد جملًا مع وسوم لإنشاء منشورات سريعة عن فيليكس على X/تويتر (وغيرها). ⤷",
+      "📌 إعادة النشر🔁 والرد على الآخرين إجبارية! يجب RT 🐥! إعادة النشر تحسب أيضًا! (X/تويتر) ⤷",
+      "🎯 الهدف: 100 منشور/ساعة (X/تويتر) ⤷",
+      "🔥 تريندات X/تويتر تحتاج عددًا كبيرًا من المنشورات خلال وقت قصير. أنشر كثيرًا أثناء التريند! ⤷",
+      "💡 تناوب بين إعادة النشر🔁 وإنشاء منشورات/اقتباسات جديدة 💬 ⤷",
+      "💡 يمكن استخدامها على إنستغرام... - فقط احذف الوسوم",
+      "✍️ يمكنك تعديل الجمل. هذه الأداة تقدم اقتراحات فقط ♡ ⤷",
+      "انقر 🏆 لرؤية لوحة المتصدرين وعدد مرات مشاركتك على X/Twitter. ⤷",
+      "🐣 شكرًا لدعمكم فيليكس 💖 !تابعوا"
+    ],
+    leaderboard: {
+    title: "🏆 لوحة المتصدرين 🏆",
+    loading: "جاري تحميل اللوحة...",
+    noData: "لا توجد بيانات بعد",
+    yourDisplayName: "اسمك",
+    yourRank: "مرتبتك",
+    yourShares: "مشاركاتك",
+    setDisplayName: "✏️ تعيين اسم",
+    changeName: "✏️ تغيير الاسم",
+    noSharesYet: "لم تشارك بعد!",
+    shareToAppear: "شارك لتظهر هنا",
+    shares: "مشاركة",
+    error: "فشل تحميل اللوحة",
+    you: "أنت",
+    user: "مستخدم"
+    }
+  },
+
+  it: {
+    title: "GENERATORE DI POST FELIX",
+    generate: "🐣 Genera",
+    share: "📤 Condividi su X",
+    defaultSentence: "Clicca per generare una frase casuale.",
+    copied: "Copiato negli appunti!",
+    instructions: [
+      "✅ Clicca 'Genera' → 'Condividi su X' (Twitter)",
+      "✅ RIPUBBLICA🔁 sempre i post degli altri (IMPORTANTE❣️ OBBLIGATORIO 🔁)",
+      "✅ Alterna RIPUBBLICAZIONI🔁 e nuovi post/risposte 💬",
+      "✅ Facoltativo: Modifica o aggiungi testo (Non esagerare con le emoji)"
+    ],
+    linkText: "🔗 LINK 👉 Clicca <span class='here-text'>qui</span> per i post ufficiali #FELIXxLVCRUISE27",
+    tips: [
+      "📝 Questo strumento genera frasi con hashtag per post rapidi su Felix su X/Twitter (e altre piattaforme). ⤷",
+      "📌 RIPUBBLICA🔁 SEMPRE e rispondi agli altri! RT OBBLIGATORIO 🐥! Anche le ripubblicazioni contano! (X/Twitter) ⤷",
+      "🎯 Obiettivo: 100 post/ora (X/Twitter) ⤷",
+      "🔥 I trend su X/Twitter premiano volume elevato in poco tempo. Durante i trend, posta il più possibile! ⤷",
+      "💡 Alterna RIPUBBLICAZIONI🔁, nuovi post e citazioni 💬 ⤷",
+      "💡 Usabile anche su altre piattaforme (Instagram...) ⤷",
+      "✍️ Puoi modificare liberamente le frasi. Questo strumento fornisce solo suggerimenti ♡ ⤷",
+      "Clicca 🏆 per vedere la classifica e quante volte hai condiviso su X/Twitter. ⤷",
+      "🐣 Grazie per supportare FELIX 💖 FORZA!"
+    ],
+    leaderboard: {
+      title: "🏆 Classifica 🏆",
+      loading: "Caricamento classifica...",
+      noData: "Nessun dato disponibile",
+      yourDisplayName: "Il tuo nome",
+      yourRank: "La tua posizione",
+      yourShares: "Le tue condivisioni",
+      setDisplayName: "✏️ Imposta nome",
+      changeName: "✏️ Cambia nome",
+      noSharesYet: "Non hai ancora condiviso!",
+      shareToAppear: "Condividi per apparire qui",
+      shares: "volte",
+      error: "Errore nel caricamento",
+      you: "Tu",
+      user: "Utente",
+      shareButton: "🐦 Condividi la mia posizione",
+      modalTitle: "Imposta il tuo nome (X/Twitter @username)",
+      modalDescription: "Scegli come apparire in classifica:",
+      modalPlaceholder: "Il tuo nome (es. Pixie123)",
+      saveButton: "Salva ✔",
+      skipButton: "Salta ✖"
+    }
+  }
+
+};
+
+  let csvSentences = [];
+  let isFetching = false;
+
+  let isSharing = false; // Global flag to prevent duplicate shares
+
+  // ===== New Variables for 1️⃣ Client-Side Counting + Delayed Writes =====
+let pendingShares = parseInt(localStorage.getItem('pendingShares')) || 0;
+const SHARE_BATCH_SIZE = 3; // Write to Firebase every 3 shares
+
+  // CSV Loading Optimized version Added caching & Better error handling
+    async function fetchSentences() {
+  // Return cached sentences if available
+  if (window.__cachedSentences) {
+    return window.__cachedSentences;
+  }
+
+  // Your existing check for already fetching
+  if (csvSentences.length > 0) return csvSentences;
+  if (isFetching) {
+    return new Promise(resolve => {
+      const check = () => {
+        if (!isFetching) resolve(csvSentences);
+        else setTimeout(check, 100);
+      };
+      check();
+    });
+  }
+
+  isFetching = true;
+  try {
+    const response = await fetch('data/lvcruise27-felix.csv');
+    if (!response.ok) throw new Error(`Failed to fetch CSV: ${response.status}`);
+
+    const csvData = await response.text();
+    const cleanCsvData = csvData.replace(/^\uFEFF/, '');
+
+    // Your existing parsing logic
+    let currentSentence = '';
+    let inQuotes = false;
+    const sentences = [];
+
+    for (let i = 0; i < cleanCsvData.length; i++) {
+      const char = cleanCsvData[i];
+
+      if (char === '"') {
+        if (cleanCsvData[i+1] === '"') {
+          currentSentence += '"';
+          i++;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (char === '\n' && !inQuotes) {
+        if (currentSentence.trim().length > 0) {
+          if (currentSentence.startsWith('"') && currentSentence.endsWith('"')) {
+            currentSentence = currentSentence.slice(1, -1);
+          }
+          sentences.push(currentSentence.trim());
+        }
+        currentSentence = '';
+      } else {
+        currentSentence += char;
+      }
+    }
+
+    if (currentSentence.trim().length > 0) {
+      if (currentSentence.startsWith('"') && currentSentence.endsWith('"')) {
+        currentSentence = currentSentence.slice(1, -1);
+      }
+      sentences.push(currentSentence.trim());
+    }
+
+    if (sentences.length === 0) {
+      throw new Error('CSV file is empty or improperly formatted');
+    }
+
+    // Cache the result
+    window.__cachedSentences = sentences;
+    csvSentences = sentences; // Maintain your existing variable
+    return sentences;
+  } catch (error) {
+    console.error('Error loading captions:', error);
+    return [
+      "Error loading sentences.",
+      "Make sure you are connected to the internet!",
+    ];
+  } finally {
+    isFetching = false;
+  }
+}
+
+  async function copyToClipboard(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+      return false;
+    }
+  }
+
+  async function generateSentence() {
+    const sentences = await fetchSentences();
+    if (sentences.length === 0) {
+      document.getElementById("sentence").textContent = "Failed to load captions. Please try again.";
+      return;
+    }
+
+    const random = sentences[Math.floor(Math.random() * sentences.length)];
+    const sentenceEl = document.getElementById("sentence");
+    sentenceEl.textContent = random;
+
+    const lang = document.getElementById("language").value;
+    const success = await copyToClipboard(random);
+    const notification = document.getElementById("copy-notification");
+    notification.textContent = success ? (translations[lang]?.copied || translations.en.copied) : "Failed to copy";
+    notification.classList.add("show");
+    setTimeout(() => notification.classList.remove("show"), 2000);
+
+    const emojis = ["🚢", "🏰", "🧝‍♀️","🕶️", "😸", "😹", "😻", "🐥", "🐣", "🐤", "🐈","🧚","👜","👑"];
+    const emojiCount = 3 + Math.floor(Math.random() * 3);
+
+    for (let i = 0; i < emojiCount; i++) {
+      const emoji = document.createElement("div");
+      emoji.className = "emoji";
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.style.left = (sentenceEl.offsetLeft + 20 + Math.random() * (sentenceEl.offsetWidth - 40)) + "px";
+      emoji.style.top = sentenceEl.offsetTop + "px";
+      emoji.style.fontSize = (20 + Math.random() * 15) + "px";
+      emoji.style.animationDuration = (1 + Math.random() * 0.5) + "s";
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 1500);
+    }
+  }
+
+  // Add cleanup for emoji animations
+function createEmoji() {
+  const emoji = document.createElement("div");
+  emoji.className = "emoji";
+  
+  // Automatic cleanup when animation ends
+  emoji.addEventListener('animationend', () => {
+    emoji.remove(); // Remove element from DOM
+  });
+
+  document.body.appendChild(emoji);
+}
+
+
+  async function shareSentence() {
+
+    if (document.getElementById('leaderboard-popup').classList.contains(LEADERBOARD_ACTIVE_CLASS)) {
+    return; // Block sharing when leaderboard is active
+  }
+
+  if (isSharing) return;
+  isSharing = true;
+
+  const text = document.getElementById("sentence").textContent;
+  if (!text || text === translations.en.defaultSentence) {
+    alert("Please generate a caption first!");
+    isSharing = false;
+    return;
+  }
+
+  const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+
+  // Mobile handling
+  if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    try {
+      const iframe = document.createElement('iframe');
+      iframe.style.cssText = 'position:absolute;width:0;height:0;border:none;visibility:hidden;';
+      iframe.sandbox = 'allow-scripts allow-same-origin';
+
+      // Platform-specific URLs
+      if (/Android/i.test(navigator.userAgent)) {
+        iframe.src = `intent://post?text=${encodeURIComponent(text)}#Intent;scheme=twitter;package=com.twitter.android;end`;
+      } else {
+        iframe.src = `twitter://post?message=${encodeURIComponent(text)}`;
+      }
+
+      document.body.appendChild(iframe);
+
+      const fallbackTimer = setTimeout(() => {
+        document.body.removeChild(iframe);
+        if (!document.hidden) {
+          window.location.href = shareUrl; // Changed from replace to href
+        }
+      }, 300);
+
+      window.addEventListener('blur', function appOpened() {
+        clearTimeout(fallbackTimer);
+        document.body.removeChild(iframe);
+        window.removeEventListener('blur', appOpened);
+      });
+
+    } catch (e) {
+      window.location.href = shareUrl;
+    }
+  }
+  // Desktop handling
+  else {
+    window.open(shareUrl, '_blank', 'noopener,noreferrer');
+  }
+
+  setTimeout(() => { isSharing = false; }, 1000);
+
+  try {
+    await recordShare();
+  } catch(e) {
+    console.error("Leaderboard update failed", e);
+  }
+}
+
+function changeLanguage() {
+  try {
+    // 1. Get current language and translations
+    const langSelect = document.getElementById("language");
+    const lang = langSelect ? langSelect.value : 'en';
+    const t = translations[lang] || translations.en;
+    const tLeaderboard = (t.leaderboard || translations.en.leaderboard);
+
+    // 2. Cache DOM elements
+    const titleEl = document.getElementById("title");
+    const generateBtn = document.getElementById("generate-btn");
+    const shareBtn = document.getElementById("share-btn");
+    const sentenceEl = document.getElementById("sentence");
+    const instructionsContainer = document.getElementById("instructions");
+    const linkText = document.getElementById("link-text");
+
+    // 3. Update main UI elements if they exist
+    if (titleEl) titleEl.textContent = t.title;
+    if (generateBtn) generateBtn.textContent = t.generate;
+    if (shareBtn) shareBtn.textContent = t.share;
+    
+    // 4. Update sentence if it's the default
+    if (sentenceEl) {
+      const currentSentence = sentenceEl.textContent;
+      const isDefault = Object.values(translations).some(trans => 
+        currentSentence === (trans.defaultSentence || translations.en.defaultSentence)
+      );
+      if (isDefault) {
+        sentenceEl.textContent = t.defaultSentence;
+      }
+    }
+    
+    // 5. Update instructions
+    if (instructionsContainer) {
+      const instructionDivs = instructionsContainer.querySelectorAll("div");
+      if (instructionDivs.length > 0) {
+        t.instructions.forEach((line, i) => {
+          if (instructionDivs[i]) instructionDivs[i].textContent = line;
+        });
+      } else {
+        instructionsContainer.innerHTML = t.instructions.map(line => 
+          `<div>${line}</div>`
+        ).join('');
+      }
+    }
+    
+    // 6. Update link text
+    if (linkText) linkText.innerHTML = t.linkText;
+    
+    // 7. Update leaderboard/modal elements
+    const updateTranslatedElement = (selector, property, value) => {
+      const el = document.querySelector(selector);
+      if (el) el[property] = value;
+    };
+
+    updateTranslatedElement('[data-translate="modalTitle"]', 'textContent', tLeaderboard.modalTitle);
+    updateTranslatedElement('[data-translate="modalDescription"]', 'textContent', tLeaderboard.modalDescription);
+    updateTranslatedElement('[data-translate-attr="modalPlaceholder"]', 'placeholder', tLeaderboard.modalPlaceholder);
+    updateTranslatedElement('[data-translate="saveButton"]', 'textContent', tLeaderboard.saveButton);
+    updateTranslatedElement('[data-translate="skipButton"]', 'textContent', tLeaderboard.skipButton);
+    updateTranslatedElement('[data-translate="shareButton"]', 'textContent', tLeaderboard.shareButton);
+
+    // 8. Maintain chick tips functionality
+    const bubble = document.querySelector('.speech-bubble.show');
+    if (bubble) {
+      const tipText = document.querySelector('.tip-text');
+      if (tipText) {
+        const tips = t.tips || translations.en.tips;
+        tipText.textContent = tips[currentTip % tips.length];
+      }
+    }
+
+  } catch (error) {
+    console.error("Error in changeLanguage:", error);
+    // Fallback to English if something fails
+    if (document.getElementById("language")) {
+      document.getElementById("language").value = 'en';
+    }
+    changeLanguage(); // Recursively call with English as fallback
+  }
+}
+
+function setupFloatingChick() {
+  const chick = document.querySelector('.floating-chick');
+  const bubble = document.querySelector('.speech-bubble');
+  const tipText = document.querySelector('.tip-text');
+  const closeBtn = document.querySelector('.close-bubble');
+
+  if (!chick) return;
+
+  let currentTip = 0;
+  let lastTapTime = 0;
+
+  function getCurrentTips() {
+    const lang = document.getElementById("language").value;
+    return translations[lang]?.tips || translations.en.tips;
+  }
+
+  function hideBubble() {
+    bubble.style.opacity = 0;
+    bubble.style.transform = 'scale(0.5)';
+    bubble.classList.remove('show'); // Add this line
+  }
+
+  function showBubble() {
+    const tips = getCurrentTips();
+    tipText.textContent = tips[currentTip];
+    bubble.style.opacity = 1;
+    bubble.style.transform = 'scale(1)';
+    bubble.classList.add('show'); // Add this line
+  }
+
+
+  function showNextTip() {
+    const tips = getCurrentTips();
+    currentTip = (currentTip + 1) % tips.length;
+    tipText.textContent = tips[currentTip];
+  }
+
+
+  // Click handler for showing tips - Modified
+  chick.addEventListener('click', (e) => {
+    // Only handle clicks directly on the chick image
+    if (e.target.closest('.floating-chick') === chick) {
+      e.stopPropagation();
+      const now = Date.now();
+      if (now - lastTapTime < 300) return;
+      lastTapTime = now;
+
+      if (bubble.classList.contains('show')) {
+        showNextTip(); // Only cycle tips if bubble is already visible
+      } else {
+        showBubble(); // Show bubble for first click
+      }
+    }
+  });
+
+  // Close button
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    hideBubble();
+  });
+
+  // Auto-close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!chick.contains(e.target) && !bubble.contains(e.target)) {
+      hideBubble();
+    }
+  });
+
+  // Auto-show bubble on desktop
+  if (!('ontouchstart' in window)) {
+    setTimeout(() => {
+      const tips = getCurrentTips();
+      tipText.textContent = tips[0];
+      bubble.style.opacity = 1;
+      bubble.style.transform = 'scale(1)';
+    }, 1000);
+  }
+}
+
+// Leaderboard functions
+
+
+// Check for username - FIREBASE VER
+async function checkUsername() {
+  // Check for existing username
+  let savedUsername = localStorage.getItem('displayName');
+
+  // Generate default username if none exists
+  if (!savedUsername) {
+    const randomNum = Math.floor(1000 + Math.random() * 9000); // 4-digit random number
+    savedUsername = `Pixie${randomNum}`;
+    localStorage.setItem('displayName', savedUsername);
+
+    // Save to Firestore
+    try {
+      await db.collection('users').doc(auth.currentUser?.uid || window.userId).set({
+        username: savedUsername,
+        usernameLower: savedUsername.toLowerCase(),
+        shares: 0
+      }, { merge: true });
+    } catch (error) {
+      console.error('Error saving default username:', error);
+    }
+  }
+
+  return savedUsername;
+}
+
+
+function showUsernameModal() {
+  const modal = document.getElementById('username-modal');
+  const input = document.getElementById('username-input');
+  const errorMsg = document.createElement('div');
+  errorMsg.className = 'username-error';
+  errorMsg.style.color = 'red';
+  errorMsg.style.marginTop = '5px';
+  input.parentNode.insertBefore(errorMsg, input.nextSibling);
+
+  modal.style.display = 'flex';
+  input.focus();
+
+    // Save button handler - FIREBASE VER
+  document.getElementById('save-username').onclick = async () => {
+  const username = document.getElementById('username-input').value.trim();
+  errorMsg.textContent = '';
+
+  if (username.length < 3) {
+    errorMsg.textContent = 'Username must be at least 3 characters';
+    return;
+  }
+
+  try {
+    // Check if username exists (case insensitive)
+    const usernameQuery = await db.collection('users')
+      .where('usernameLower', '==', username.toLowerCase())
+      .limit(1)
+      .get();
+
+    if (!usernameQuery.empty &&
+        usernameQuery.docs[0].id !== window.userId) {
+      errorMsg.textContent = 'Username already taken';
+      return;
+    }
+
+    // Save username
+    await db.collection('users').doc(window.userId).set({
+      username: username,
+      usernameLower: username.toLowerCase() // for case-insensitive search
+    }, { merge: true });
+
+    localStorage.setItem('displayName', username);
+    document.getElementById('username-modal').style.display = 'none';
+    updateLeaderboard();
+  } catch (error) {
+    console.error('Error saving username:', error);
+    errorMsg.textContent = 'Error saving username. Please try again.';
+  }
+};
+
+    // Skip button handler
+  document.getElementById('skip-username').onclick = () => {
+    modal.style.display = 'none';
+  };
+}
+
+// use translations
+async function updateLeaderboard() {
+  const leaderboardList = document.getElementById('leaderboard-list');
+  const userRankElement = document.getElementById('user-rank');
+  const lang = document.getElementById('language').value;
+  const t = translations[lang]?.leaderboard || translations.en.leaderboard;
+
+  leaderboardList.innerHTML = `<div class="loading">${t.loading}</div>`;
+  userRankElement.innerHTML = '';
+
+  try {
+    const { topUsers, currentRank, currentShares } = await getLeaderboard();
+    const currentUsername = localStorage.getItem('displayName') || t.you;
+    const currentUserId = auth.currentUser?.uid || window.userId;
+
+    leaderboardList.innerHTML = '';
+
+    if (topUsers.length === 0) {
+      leaderboardList.innerHTML = `<div class="empty">${t.noData}</div>`;
+      userRankElement.innerHTML = `
+        <div class="user-rank-header">${t.yourDisplayName}: ${currentUsername}</div>
+        <div>${t.shareToAppear}</div>
+        <button onclick="showUsernameModal()" class="edit-username">
+          ${t.changeName}
+        </button>
+      `;
+      return;
+    }
+
+    // Display top users
+    topUsers.forEach((user, index) => {
+      const item = document.createElement('div');
+      item.className = `leaderboard-item ${user.id === currentUserId ? 'highlight' : ''}`;
+
+      let badge = '';
+      if (index === 0) badge = '🥇 ';
+      else if (index === 1) badge = '🥈 ';
+      else if (index === 2) badge = '🥉 ';
+
+      const displayName = user.id === currentUserId
+        ? `${currentUsername || t.you} 🐥✨`
+        : (user.username || `${t.user} ${user.id.substring(0, 4)}`);
+
+      item.innerHTML = `
+        <span>${badge}#${index + 1} ${displayName}</span>
+        <span>${user.shares || 0} ${t.shares}</span>
+      `;
+      leaderboardList.appendChild(item);
+    });
+
+    // User rank section (matches gongcha-felix style)
+    userRankElement.innerHTML = `
+      <div class="user-rank-header">${t.yourDisplayName}: ${currentUsername}🐥</div>
+      ${currentRank ?
+        `<div>${t.yourRank}: #${currentRank}</div>
+         <div>${t.yourShares}: ${currentShares}  (🎯100+)</div>` :
+        `<div>${t.shareToAppear}</div>`
+      }
+      <button onclick="showUsernameModal()" class="edit-username">
+        ${t.changeName}
+      </button>
+    `;
+
+     // After getting currentShares:
+     updateProgressBar(currentShares);
+
+  } catch (error) {
+    console.error('Error updating leaderboard:', error);
+    leaderboardList.innerHTML = `<div class="error">${t.error}</div>`;
+    userRankElement.innerHTML = `
+      <div class="error">${t.error}</div>
+      <button onclick="showUsernameModal()" class="edit-username">
+        ${t.changeName}
+      </button>
+    `;
+  }
+}
+
+// Modified  recordShare function - FIREBASE VER  (With Batching + LocalStorage)
+async function recordShare() {
+  try {
+    // 1. Client-side counting
+    let pendingShares = parseInt(localStorage.getItem('pendingShares')) || 0;
+    pendingShares++;
+    localStorage.setItem('pendingShares', pendingShares);
+
+    // 2. Only write to Firestore every 3 shares (reduces writes by 66%)
+    if (pendingShares >= 3) {
+      const userId = auth.currentUser?.uid || window.userId;
+      if (!userId) return false;
+
+      const userRef = db.collection('users').doc(userId);
+      
+      // Batch update (single write)
+      await userRef.set({
+        username: localStorage.getItem('displayName') || 'Anonymous',
+        usernameLower: (localStorage.getItem('displayName') || 'anonymous').toLowerCase(),
+        shares: firebase.firestore.FieldValue.increment(pendingShares), // Batch increment
+        lastShared: new Date().toISOString(),
+        userId: userId
+      }, { merge: true });
+
+      // 3. Reset counter after successful write
+      pendingShares = 0;
+      localStorage.removeItem('pendingShares');
+    }
+
+    // 4. Update UI immediately using local count (no wait for Firestore)
+    const { currentShares } = await getLeaderboard();
+    const totalShares = (currentShares || 0) + pendingShares;
+    updateProgressBar(totalShares);
+
+    return true;
+  } catch (error) {
+    console.error('Error recording share:', error);
+    return false;
+  }
+}
+
+// Update the getLeaderboard function - FIREBASE VER
+async function getLeaderboard() {
+  try {
+    const lang = document.getElementById('language').value;
+    const t = translations[lang]?.leaderboard || translations.en.leaderboard;
+
+    // Get all users ordered by shares (we'll handle ranking client-side)
+    const usersQuery = await db.collection('users')
+      .orderBy('shares', 'desc')
+      .get();
+
+    if (usersQuery.empty) {
+      return {
+        topUsers: [],
+        currentRank: null,
+        currentShares: 0,
+        allUsers: []
+      };
+    }
+
+    const allUsers = usersQuery.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    // Get top 20 users
+    const topUsers = allUsers.slice(0, 20);
+
+    // Find current user's rank and shares
+    let currentRank = null;
+    let currentShares = 0;
+    const currentUserId = auth.currentUser?.uid || window.userId;
+
+    if (currentUserId) {
+      const currentUser = allUsers.find(u => u.id === currentUserId);
+      if (currentUser) {
+        currentShares = currentUser.shares || 0;
+        // Calculate rank (index + 1 since array is sorted)
+        currentRank = allUsers.findIndex(u => u.id === currentUserId) + 1;
+      }
+    }
+
+    return {
+      topUsers,
+      currentRank,
+      currentShares,
+      allUsers
+    };
+  } catch (error) {
+    console.error('Error getting leaderboard:', error);
+    const lang = document.getElementById('language').value;
+    const t = translations[lang]?.leaderboard || translations.en.leaderboard;
+    return {
+      topUsers: [],
+      currentRank: null,
+      currentShares: 0,
+      allUsers: []
+    };
+  }
+}
+
+// 2. Modify toggleLeaderboard() (keeps existing functionality)
+function toggleLeaderboard() {
+  const popup = document.getElementById('leaderboard-popup');
+
+ // SIMPLEST APPROACH - Just toggle the class
+ popup.classList.toggle(LEADERBOARD_ACTIVE_CLASS);
+
+  // Keep your existing display logic (works alongside the class)
+  if (popup.style.display === 'flex') {
+    popup.style.display = 'none';
+  } else {
+    popup.style.display = 'flex';
+    updateLeaderboard();
+  }
+}
+
+// Share user rankings to Twitter
+async function shareMyRanking() {
+  if (isSharing) return;
+  isSharing = true;
+
+  const lang = document.getElementById('language').value;
+  const t = translations[lang]?.leaderboard || translations.en.leaderboard;
+
+  try {
+    // Get ranking data
+    const { currentRank, currentShares } = await getLeaderboard();
+    const username = localStorage.getItem('displayName') || t.you;
+
+    const text = currentRank
+      ? `🏆 (${username}) I'm ranked #${currentRank} with ${currentShares} shares on the #FELIXxLVCRUISE27 Leaderboard! 🚢🐥\n\n❣️ Join me in supporting #FELIX #LVCRUISE27:\n\n👉 https://lvcruise27-felix.netlify.app`
+      : `❣️ Check out the #FELIXxLVCRUISE27 Post Generator!\n\nHelp trend #FELIX #LVCRUISE27 🚢🐥\n\n👉 https://lvcruise27-felix.netlify.app`;
+
+    const encodedText = encodeURIComponent(text);
+    const webUrl = `https://twitter.com/intent/tweet?text=${encodedText}`;
+
+    // Universal Mobile Handler
+    if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      // 1. First try with location.href (works on most browsers)
+      try {
+        let appUrl;
+        if (/Android/i.test(navigator.userAgent)) {
+          appUrl = `intent://post?text=${encodedText}#Intent;scheme=twitter;package=com.twitter.android;end`;
+        } else {
+          appUrl = `twitter://post?message=${encodedText}`;
+        }
+
+        // Create temporary anchor tag
+        const link = document.createElement('a');
+        link.href = appUrl;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+
+        // Simultaneous approaches
+        link.click(); // Primary method
+        window.location.href = appUrl; // Secondary method
+
+        // Fallback with precise timing
+        setTimeout(() => {
+          if (!document.hidden) return; // App opened successfully
+          document.body.removeChild(link);
+          window.open(webUrl, '_blank'); // Final fallback
+        }, 300);
+
+      } catch (e) {
+        window.open(webUrl, '_blank');
+      }
+    }
+    // Desktop
+    else {
+      window.open(webUrl, '_blank', 'noopener,noreferrer');
+    }
+
+    // Track and record
+    gtag('event', 'share_ranking', {
+      'event_category': 'engagement',
+      'event_label': 'Shared Leaderboard Position'
+    });
+    await recordShare();
+
+  } catch (error) {
+    console.error('Error sharing ranking:', error);
+    window.open(webUrl, '_blank'); // Ultimate fallback
+  } finally {
+    setTimeout(() => { isSharing = false; }, 1000);
+  }
+}
+
+// ===== TRENDING PARTY COUNTDOWN =====
+// Event dates (in their respective timezones)
+const events = {
+  dep: new Date("2026-05-18T19:00:00+09:00"),   // KST (7:00 PM) - May 18 MON
+  main: new Date("2026-05-20T20:30:00+09:00")     // KST (8:30 PM) - May 20 WED
+};
+
+// Format countdown display
+function formatCountdown(diff) {
+  if (diff <= 0) return "🎉 Started!";
+
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+  return `${d}d ${h}h ${m}m ${s}s`;
+}
+
+// Update all time displays
+function updateTimes() {
+  const now = new Date();
+
+  // Update Departure times
+  const depDate = events.dep;
+  document.getElementById('local-dep').textContent = depDate.toLocaleString(undefined, {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  });
+
+  // Update Main Show times
+  const mainDate = events.main;
+  document.getElementById('local-main').textContent = mainDate.toLocaleString(undefined, {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  });
+
+  // Update countdowns
+  const depDiff = depDate - now;
+  document.getElementById('countdown-dep').textContent = formatCountdown(depDiff);
+
+  const mainDiff = mainDate - now;
+  document.getElementById('countdown-main').textContent = formatCountdown(mainDiff);
+}
+
+// Initialize and update every second
+updateTimes();
+setInterval(updateTimes, 1000);
+// ===== END COUNTDOWN =====
+
+// Update progress bar function
+function updateProgressBar(currentShares) {
+  const progressFill = document.getElementById('progress-fill');
+  if (!progressFill) return;
+  
+  const progressPercent = Math.min(100, currentShares);
+  progressFill.style.width = `${progressPercent}%`;
+  
+  // Change to darker green when complete
+  if (currentShares >= 100) {
+    progressFill.style.backgroundColor = '#2E7D32';
+  }
+}
+
+   // Initialize everything when page loads
+ // Modified initialization with proper auth flow
+ window.addEventListener('DOMContentLoaded', async () => {
+  // 1. First initialize UI with default (English) content
+  changeLanguage();
+
+  // 2. Initialize Firebase (with error handling)
+  try {
+     // First ensure authentication
+    const authResult = await auth.signInAnonymously();
+    window.userId = authResult.user.uid;
+    localStorage.setItem('userId', window.userId);
+
+    // Ensure username is set
+    await checkUsername();
+  } catch (error) {
+    console.error("Auth error, falling back:", error);
+    window.userId = localStorage.getItem('userId') ||
+                   Math.random().toString(36).substring(2) + Date.now().toString(36);
+    localStorage.setItem('userId', window.userId);
+    // Ensure username is set even if auth fails
+    await checkUsername();
+  }
+
+  // 3. Load non-critical elements after short delay
+  setTimeout(() => {
+    setupFloatingChick();
+    fetchSentences().catch(e => console.error("Sentence load error:", e));
+    updateLeaderboard().catch(e => console.error("Leaderboard error:", e));
+  }, 100);
+
+  // 4. Set focus to generate button
+  document.getElementById("generate-btn").focus();
+
+  // Maintain your existing leaderboard click handler
+  const leaderboardPopup = document.getElementById('leaderboard-popup');
+  const leaderboardContent = document.querySelector('.leaderboard-content');
+
+  if (leaderboardPopup && leaderboardContent) {
+    leaderboardPopup.addEventListener('click', function(e) {
+      if (e.target === this) {
+        toggleLeaderboard();
+        e.stopImmediatePropagation();
+      }
+    });
+
+    leaderboardContent.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  }
+});
+
+
+</script>
+
+<div class="floating-chick" aria-label="Tips" role="button" tabindex="0">
+  <div class="chick-container">
+    <img src="images/chick.webp"
+         class="chick-img"
+         alt="Tips"
+         width="200"
+         height="200"
+         title="Click me for tips!"
+         loading="lazy">
+  </div>
+
+  <div class="speech-bubble">
+    <p class="tip-text">Click me for tips!🐣点击我！クリックしてください！¡Haz clic en mí! ⤷</p>
+    <button class="close-bubble" aria-label="Close tips">✖ Close</button>
+  </div>
+</div>
+
+  <!-- external Logo -->
+ <!-- Simplified logo HTML -->
+ <a
+ href="https://twitter.com/intent/tweet?text=%F0%9F%95%B9%EF%B8%8F%20Check%20out%20%23FELIX%20POST%20GENERATOR%20to%20quickly%20make%20new%20posts%20for%20%23FELIXxLVCRUISE27%20%F0%9F%92%AC%0A%0A%F0%9F%94%97%20https%3A%2F%2Flvcruise27
+-felix.netlify.app%2F%20%F0%9F%91%88%0A%0AYou%20can%20click%20'Generate'%20to%20get%20random%20sentences%20with%20pre-filled%20tags%20%26%20share%20faster%20%F0%9F%9B%B3%EF%B8%8F%0A%0A%F0%9F%94%81%20Always%20REPOST%20others'%20posts%20%26%20replies%20%F0%9F%94%81%0A%0AFIGHTING%20%F0%9F%90%A3%F0%9F%8F%B0"
+ class="external-logo"
+ target="_blank"
+ rel="noopener noreferrer"
+ title="Share this tool on X/Twitter"
+>
+<div class="share-bubble">Share</div>
+</a>
+
+
+<div id="leaderboard-popup" class="leaderboard-popup">
+  <div class="leaderboard-content">
+    <div class="leaderboard-header">
+      <h3>🏆 Leaderboard 🏆</h3>
+      <button class="close-leaderboard-top" onclick="toggleLeaderboard()">✖</button>
+    </div>
+
+    <!-- Scrollable user list container -->
+    <div class="leaderboard-list-container">
+      <div id="leaderboard-list"></div>
+    </div>
+
+    <!-- Fixed bottom section -->
+    <div class="leaderboard-footer">
+      <div id="user-rank" class="user-rank"></div>
+      <button class="share-ranking-btn" onclick="shareMyRanking()" data-translate="shareButton">
+        🐦 Share My Ranking
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="username-modal" class="modal">
+  <div class="modal-content">
+    <h3 data-translate="modalTitle">Set Your Display Name (X/Twitter @username)</h3>
+    <p data-translate="modalDescription">Choose how you'll appear on the leaderboard:</p>
+    <input
+      type="text"
+      id="username-input"
+      maxlength="20"
+      data-translate="modalPlaceholder"
+      data-translate-attr="placeholder"
+      placeholder="Your display name (e.g., Pixie123)"
+    >
+    <div class="modal-buttons">
+      <button id="save-username" data-translate="saveButton">Save ✔</button>
+      <button id="skip-username" data-translate="skipButton">Skip ✖</button>
+    </div>
+  </div>
+</div>
+<script>
+// Brave Browser ad blocking share to x button Specific Fix:
+  if (navigator.brave) {
+    document.getElementById('share-btn').style.display = 'flex';
+  }</script>
+</body>
+</html>
