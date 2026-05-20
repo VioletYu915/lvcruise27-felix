@@ -12,39 +12,6 @@
   gtag('config', 'G-QGH1V0WJ00');
 </script>
 
-<!-- 🔥 Firebase Additions Start 🔥 -->
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
-
-<script>
-  // Firebase VER configuration (to-REPLACE EACH TIME WITH PROJECT'S actual values)
-  const firebaseConfig = {
-  apiKey: "AIzaSyCkYfbw7swISftLy3zKXW5ppVCOygaD2m4",
-  authDomain: "felix-lvcruise26.firebaseapp.com",
-  projectId: "felix-lvcruise26",
-  storageBucket: "felix-lvcruise26.firebasestorage.app",
-  messagingSenderId: "510164878264",
-  appId: "1:510164878264:web:2459f94deda5b2ea3d854d"
-};
-
-// Initialize Firebase once and reuse references
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-const db = firebaseApp.firestore();
-const auth = firebaseApp.auth();
-
-// Flush pending shares on load
-window.addEventListener('load', () => {
-  const pendingShares = parseInt(localStorage.getItem('pendingShares')) || 0;
-  if (pendingShares > 0) {
-    console.log('Flushing', pendingShares, 'pending shares');
-    recordShare().catch(e => console.error('Failed to flush shares:', e));
-  }
-});
-
-
-</script>
-<!-- 🔥 Firebase Additions End 🔥 -->
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -55,7 +22,7 @@ window.addEventListener('load', () => {
   <!-- Social Media Thumbnail Meta Tags -->
 <meta property="og:title" content="FELIX Post Generator | LVCRUISE27">
 <meta property="og:description" content="Get quick sentences for FELIX x LVCRUISE27 trending parties">
-<meta property="og:image" content="https://i.postimg.cc/wTT88h8S/twitter-card.png">
+<meta property="og:image" content="https://i.postimg.cc/9Fk9wpf9/twitter-card.jpg">
 <meta property="og:url" content="https://lvcruise27-felix.netlify.app/">
 <meta property="og:type" content="website">
 
@@ -63,7 +30,7 @@ window.addEventListener('load', () => {
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="FELIX Post Generator | LVCRUISE27">
 <meta name="twitter:description" content="Get quick sentences for FELIX x LVCRUISE27 trending parties">
-<meta name="twitter:image" content="https://i.postimg.cc/wTT88h8S/twitter-card.png">
+<meta name="twitter:image" content="https://i.postimg.cc/9Fk9wpf9/twitter-card.jpg">
 
 <link rel="preload" href="fonts/Montserrat-VariableFont_wght.ttf" as="font" type="font/ttf"  crossorigin="anonymous">
 <link rel="preload" href="fonts/Oswald-VariableFont_wght.ttf" as="font" type="font/ttf"  crossorigin="anonymous">
@@ -398,7 +365,7 @@ body {
     top: 10px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 0 20px;
     z-index: 999;
   }
@@ -668,23 +635,6 @@ body {
     vertical-align: -0.1em; /* Better alignment */
   }
 
-    .external-logo {
-      width: 80px;
-    height: 40px;
-    bottom: 20px;
-    left: 15px;
-    }
-
-      /* More pronounced bounce on mobile */
-  @keyframes gentle-bounce {
-    0%, 100% { transform: translateX(-50%) translateY(-5px); }
-    50% { transform: translateX(-50%) translateY(-10px); }
-  }
-
-    .external-logo:hover {
-      transform: scale(1.1);
-    }
-
 
 
     #sentence {
@@ -709,6 +659,23 @@ body {
     .external-link {
       font-size: 0.6rem;
     }
+
+    .external-logo {
+      width: 80px;
+    height: 40px;
+    bottom: 20px;
+    left: 15px;
+    }
+
+    .external-logo:hover {
+      transform: scale(1.1);
+    }
+
+      /* More pronounced bounce on mobile */
+  @keyframes gentle-bounce {
+    0%, 100% { transform: translateX(-50%) translateY(-5px); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+  }
   }
 
   /* Add this NEW media query BELOW your existing one */
@@ -760,22 +727,6 @@ html {
     font-size: 16px; /* Prevent iOS zoom */
   }
 
-  #username-modal {
-    z-index: 1002 !important; /* Force above everything on mobile */
-  }
-
-  #share-btn {
-    z-index: 10; /* Above chick but below leaderboard */
-    position: relative;
-  }
-
-  .share-bubble {
-    font-size: 0.65rem;
-    padding: 3px 10px;
-    border-radius: 10px;
-    margin-bottom: 6px;
-  }
-
 
   .floating-chick {
     width: 60px; /* Single dimension control */
@@ -818,6 +769,13 @@ html {
     font-size: 14px;
     padding: 3px;
   }
+
+  .share-bubble {
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+  }
 }
 
   button:focus, select:focus {
@@ -825,336 +783,6 @@ html {
     outline-offset: 2px;
   }
 
-   /* Leaderboard Button */
-.leaderboard-button {
-  font-size: 1rem;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  border: none;
-  background-color: var(--box-bg);
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-}
-
-.leaderboard-button:hover {
-  transform: scale(1.1);
-  background-color: rgba(255, 215, 0, 0.3);
-}
-
-/* Leaderboard Popup */
-.leaderboard-popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(5px);
-  z-index: 1000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 1001; /* High enough to cover everything */
-  transform: translateZ(0); /* Creates reliable stacking context */
-}
-
-.leaderboard-content {
-  background: var(--box-bg);
-  border-radius: 20px;
-  padding: 20px;
-  max-width: 90%;
-  width: 400px;
-  max-height: 80vh;
-  overflow-y: auto;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  position: relative; /* Establishes stacking context for children */
-  /* No need for z-index since parent is already above everything */
-}
-
-.leaderboard-content h3 {
-  text-align: center;
-  margin-bottom: 15px;
-  color: var(--text-color);
-}
-
-#leaderboard-list {
-  margin-bottom: 15px;
-}
-
-.leaderboard-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 10px;
-  border-bottom: 1px solid #eee;
-}
-
-
-/* Highlight current user in leaderboard */
-.leaderboard-item.highlight {
-  background-color: rgba(255, 215, 0, 0.1);
-  border-left: 3px solid var(--pink);
-  padding-left: 15px;
-  font-weight: bold;
-}
-
-.user-rank {
-  padding: 10px;
-  background: rgba(0,0,0,0.05);
-  border-radius: 8px;
-  margin-top: 10px;
-  font-size: 0.9rem;
-}
-
-
-/* Mobile adjustments */
-@media (max-width: 600px) {
-  .leaderboard-content {
-    width: 90%;
-    padding: 15px;
-  }
-
-  .leaderboard-item {
-    font-size: 0.9rem;
-  }
-}
-
-.loading, .empty, .error {
-  text-align: center;
-  padding: 15px;
-  color: #666;
-}
-
-.loading {
-  animation: pulse 1.5s infinite;
-}
-
-
-
-.leaderboard-item span:first-child {
-  flex: 1;
-  text-align: left;
-}
-
-.leaderboard-item span:last-child {
-  flex: 0 0 100px;
-  text-align: right;
-}
-
-/* Modal styles */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-content {
-  background: var(--box-bg);
-  padding: 25px;
-  border-radius: 15px;
-  max-width: 90%;
-  width: 400px;
-  text-align: center;
-}
-
-.modal h3 {
-  margin-top: 0;
-  color: var(--pink);
-}
-
-#username-input {
-  width: 100%;
-  padding: 12px;
-  margin: 15px 0;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-  text-align: center;
-}
-
-.modal-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.modal-buttons button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-#save-username {
-  background: var(--pink);
-  color: white;
-}
-
-#skip-username {
-  background: #eee;
-  color: #666;
-}
-
-@media (max-width: 600px) {
-  .modal-content {
-    width: 90%;
-    padding: 20px;
-  }
-}
-
-.edit-username {
-  background: none;
-  border: none;
-  color: var(--blue);
-  cursor: pointer;
-  font-size: 0.8rem;
-  margin-top: 5px;
-  padding: 2px 5px;
-}
-
-.edit-username:hover {
-  text-decoration: underline;
-}
-
-.username-error {
-  color: #ff6b6b;
-  font-size: 0.8rem;
-  margin-top: 5px;
-  min-height: 1rem;
-}
-
-
-
-/* Style for the star decoration */
-.leaderboard-item.highlight span:first-child {
-  font-weight: bold;
-  color: var(--pink);
-}
-
-
-.leaderboard-header {
-  position: relative;
-  padding: 15px 40px 15px 20px; /* Added top padding */
-  border-bottom: 1px solid #eee; /* Optional visual separation */
-}
-
-.close-leaderboard-top {
-  position: absolute;
-  top: 15px;  /* Increased from 0 to add space */
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  color: #666;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: all 0.2s ease;
-  z-index: 1; /* Ensure it stays above other elements */
-}
-
-.close-leaderboard-top:hover {
-  color: var(--pink);
-  background: rgba(0,0,0,0.05);
-}
-
-/* Mobile adjustments */
-@media (max-width: 600px) {
-  .close-leaderboard-top {
-    top: 10px; /* Slightly less space on mobile */
-    right: 10px;
-    font-size: 1rem;
-    width: 25px;
-    height: 25px;
-  }
-
-  .leaderboard-header {
-    padding: 10px 35px 10px 15px; /* Adjusted for mobile */
-  }
-}
-
-/* Share ranking button styling */
-.share-ranking-btn {
-  display: block;
-  margin: 15px auto 0;
-  padding: 8px 20px;
-  background: #1DA1F2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: 'Raleway', sans-serif;
-  transition: all 0.3s ease;
-}
-
-.share-ranking-btn:hover {
-  background: #1991db;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.share-ranking-btn:active {
-  transform: translateY(0);
-}
-
-
-.leaderboard-content {
-  display: flex;
-  flex-direction: column;
-  max-height: 80vh;
-  padding: 0; /* Remove padding from content */
-}
-
-.leaderboard-list-container {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0 20px; /* Add padding here instead */
-  margin: 10px 0;
-}
-
-/* Leaderboard Footer Styles */
-.leaderboard-footer {
-  padding: 15px 20px;
-  border-top: 1px solid #eee;
-  background: rgba(255,255,255,0.9);
-  position: sticky;
-  bottom: 0;
-}
-
-/* 4. Add to CSS (ensures class overrides inline styles) */
-.leaderboard-active {
-  display: flex !important; /* Safety net */
-}
-
-#username-modal {
-  display: none; /* Initially hidden */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-  align-items: center;
-  justify-content: center;
-  /* Add this line */
-  z-index: 1002; /* The key fix */
-}
 
  /* Schedule styling below */
 /* Schedule styling */
@@ -1299,19 +927,6 @@ html {
   margin-top: 10px; /* Reduce if needed */
 }
 
-.user-rank-header {
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: var(--pink);
-  font-size: 1rem;
-  text-align: left;
-}
-
-.user-rank div {
-  margin: 5px 0;
-  text-align: left;
-}
-
 .schedule-note {
   font-size: 0.6rem;
   margin-top: 20px;
@@ -1325,21 +940,21 @@ html {
   position: relative;
   display: inline-flex;
   flex-direction: column;
-  align-items: flex-end; /* Right-align contents */
+  align-items: flex-end;
 }
 
 /* Progress bar container */
 .progress-container {
-  width: 80%; /* 80% of parent (share-btn-container) */
-  margin: 6px auto 0; /* Center horizontally */
+  width: 80%;
+  margin: 6px auto 0;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center children */
+  align-items: center;
 }
 
 /* Progress bar styling */
 .progress-bar {
-  width: 100%; /* Full width of container */
+  width: 100%;
   height: 8px;
   background-color: #f0f0f0;
   border: 1px solid #333;
@@ -1347,11 +962,9 @@ html {
   overflow: hidden;
 }
 
-
-
 .progress-fill {
   height: 100%;
-  background-color: #4CAF50; /* Green for achieved progress */
+  background-color: #4CAF50;
   width: 0%;
   transition: width 0.3s ease;
 }
@@ -1360,40 +973,9 @@ html {
 .progress-target {
   font-size: 0.6rem;
   color: rgba(29, 161, 242, 0.9);
-  text-align: center; /* Center text */
+  text-align: center;
   margin-top: 2px;
-  width: 100%; /* Match progress bar width */
-}
-
-/* Desktop hover tooltip */
-@media (hover: hover) {
-  .progress-target:hover::after {
-    content: "View your share progress in Leaderboard";
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    background: rgba(0,0,0,0.6);
-    color: white;
-    padding: 6px 10px;
-    border-radius: 4px;
-    font-size: 0.7rem;
-    font-family: inherit;
-    white-space: nowrap;
-    margin-bottom: 8px;
-    z-index: 1000;
-    animation: fadeIn 0.2s ease-out;
-  }
-}
-
-/* Mobile tap indicator */
-.progress-target:active {
-  transform: scale(0.95);
-  opacity: 0.8;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(3px); }
-  to { opacity: 1; transform: translateY(0); }
+  width: 100%;
 }
 
 @media (max-width: 400px) {
@@ -1403,24 +985,6 @@ html {
   }
 }
 
-/* Android-specific button fixes */
-@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 0) {
-  .buttons button {
-    min-height: 55px !important; /* Minimum touch target size */
-    height: auto !important;
-    padding: 12px 8px !important;
-    line-height: 1.2 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  /* Brave browser fix */
-  #share-btn {
-    position: relative !important;
-    z-index: 1 !important;
-  }
-}
 
 
 </style>
@@ -1436,14 +1000,6 @@ html {
 
  <!-- Rest of your existing HTML -->
   <div class="top-bar">
-    <button
-    class="leaderboard-button"
-    onclick="toggleLeaderboard()"
-    aria-label="Leaderboard"
-  >
-    🏆
-  </button>
-
     <select id="language" class="language-select" onchange="changeLanguage()" aria-label="Select language">
       <option value="en">🇺🇸 English</option>
       <option value="ar">🇸🇦 العربية</option>
@@ -1488,11 +1044,7 @@ html {
         <div class="progress-bar">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
-        <div class="progress-target" 
-     onclick="toggleLeaderboard()" 
-     aria-label="View sharing progress in leaderboard">
-  🎯100x
-        </div>
+        <div class="progress-target">🎯100x</div>
       </div>
     </div>
   </div>
@@ -1586,9 +1138,6 @@ document.getElementById('language').addEventListener('change', function() {
     'event_label': 'Language Changed to: ' + this.value
   });
 });
-
-// 1. Add constant (place with other constants at top of file)
-const LEADERBOARD_ACTIVE_CLASS = 'leaderboard-active';
 
 const translations = {
   en: {
@@ -2406,10 +1955,6 @@ const translations = {
 
   let isSharing = false; // Global flag to prevent duplicate shares
 
-  // ===== New Variables for 1️⃣ Client-Side Counting + Delayed Writes =====
-let pendingShares = parseInt(localStorage.getItem('pendingShares')) || 0;
-const SHARE_BATCH_SIZE = 3; // Write to Firebase every 3 shares
-
   // CSV Loading Optimized version Added caching & Better error handling
     async function fetchSentences() {
   // Return cached sentences if available
@@ -2550,11 +2095,6 @@ function createEmoji() {
 
 
   async function shareSentence() {
-
-    if (document.getElementById('leaderboard-popup').classList.contains(LEADERBOARD_ACTIVE_CLASS)) {
-    return; // Block sharing when leaderboard is active
-  }
-
   if (isSharing) return;
   isSharing = true;
 
@@ -2586,7 +2126,7 @@ function createEmoji() {
       const fallbackTimer = setTimeout(() => {
         document.body.removeChild(iframe);
         if (!document.hidden) {
-          window.location.href = shareUrl; // Changed from replace to href
+          window.location.href = shareUrl;
         }
       }, 300);
 
@@ -2605,13 +2145,12 @@ function createEmoji() {
     window.open(shareUrl, '_blank', 'noopener,noreferrer');
   }
 
-  setTimeout(() => { isSharing = false; }, 1000);
+  // Increment local share count
+  const localShares = (parseInt(localStorage.getItem('localShares')) || 0) + 1;
+  localStorage.setItem('localShares', localShares);
+  updateProgressBar();
 
-  try {
-    await recordShare();
-  } catch(e) {
-    console.error("Leaderboard update failed", e);
-  }
+  setTimeout(() => { isSharing = false; }, 1000);
 }
 
 function changeLanguage() {
@@ -2620,7 +2159,6 @@ function changeLanguage() {
     const langSelect = document.getElementById("language");
     const lang = langSelect ? langSelect.value : 'en';
     const t = translations[lang] || translations.en;
-    const tLeaderboard = (t.leaderboard || translations.en.leaderboard);
 
     // 2. Cache DOM elements
     const titleEl = document.getElementById("title");
@@ -2634,18 +2172,18 @@ function changeLanguage() {
     if (titleEl) titleEl.textContent = t.title;
     if (generateBtn) generateBtn.textContent = t.generate;
     if (shareBtn) shareBtn.textContent = t.share;
-    
+
     // 4. Update sentence if it's the default
     if (sentenceEl) {
       const currentSentence = sentenceEl.textContent;
-      const isDefault = Object.values(translations).some(trans => 
+      const isDefault = Object.values(translations).some(trans =>
         currentSentence === (trans.defaultSentence || translations.en.defaultSentence)
       );
       if (isDefault) {
         sentenceEl.textContent = t.defaultSentence;
       }
     }
-    
+
     // 5. Update instructions
     if (instructionsContainer) {
       const instructionDivs = instructionsContainer.querySelectorAll("div");
@@ -2654,29 +2192,16 @@ function changeLanguage() {
           if (instructionDivs[i]) instructionDivs[i].textContent = line;
         });
       } else {
-        instructionsContainer.innerHTML = t.instructions.map(line => 
+        instructionsContainer.innerHTML = t.instructions.map(line =>
           `<div>${line}</div>`
         ).join('');
       }
     }
-    
+
     // 6. Update link text
     if (linkText) linkText.innerHTML = t.linkText;
-    
-    // 7. Update leaderboard/modal elements
-    const updateTranslatedElement = (selector, property, value) => {
-      const el = document.querySelector(selector);
-      if (el) el[property] = value;
-    };
 
-    updateTranslatedElement('[data-translate="modalTitle"]', 'textContent', tLeaderboard.modalTitle);
-    updateTranslatedElement('[data-translate="modalDescription"]', 'textContent', tLeaderboard.modalDescription);
-    updateTranslatedElement('[data-translate-attr="modalPlaceholder"]', 'placeholder', tLeaderboard.modalPlaceholder);
-    updateTranslatedElement('[data-translate="saveButton"]', 'textContent', tLeaderboard.saveButton);
-    updateTranslatedElement('[data-translate="skipButton"]', 'textContent', tLeaderboard.skipButton);
-    updateTranslatedElement('[data-translate="shareButton"]', 'textContent', tLeaderboard.shareButton);
-
-    // 8. Maintain chick tips functionality
+    // 7. Maintain chick tips functionality
     const bubble = document.querySelector('.speech-bubble.show');
     if (bubble) {
       const tipText = document.querySelector('.tip-text');
@@ -2775,357 +2300,17 @@ function setupFloatingChick() {
   }
 }
 
-// Leaderboard functions
+// Update progress bar from localStorage
+function updateProgressBar() {
+  const progressFill = document.getElementById('progress-fill');
+  if (!progressFill) return;
 
+  const localShares = parseInt(localStorage.getItem('localShares')) || 0;
+  const progressPercent = Math.min(100, localShares);
+  progressFill.style.width = `${progressPercent}%`;
 
-// Check for username - FIREBASE VER
-async function checkUsername() {
-  // Check for existing username
-  let savedUsername = localStorage.getItem('displayName');
-
-  // Generate default username if none exists
-  if (!savedUsername) {
-    const randomNum = Math.floor(1000 + Math.random() * 9000); // 4-digit random number
-    savedUsername = `Pixie${randomNum}`;
-    localStorage.setItem('displayName', savedUsername);
-
-    // Save to Firestore
-    try {
-      await db.collection('users').doc(auth.currentUser?.uid || window.userId).set({
-        username: savedUsername,
-        usernameLower: savedUsername.toLowerCase(),
-        shares: 0
-      }, { merge: true });
-    } catch (error) {
-      console.error('Error saving default username:', error);
-    }
-  }
-
-  return savedUsername;
-}
-
-
-function showUsernameModal() {
-  const modal = document.getElementById('username-modal');
-  const input = document.getElementById('username-input');
-  const errorMsg = document.createElement('div');
-  errorMsg.className = 'username-error';
-  errorMsg.style.color = 'red';
-  errorMsg.style.marginTop = '5px';
-  input.parentNode.insertBefore(errorMsg, input.nextSibling);
-
-  modal.style.display = 'flex';
-  input.focus();
-
-    // Save button handler - FIREBASE VER
-  document.getElementById('save-username').onclick = async () => {
-  const username = document.getElementById('username-input').value.trim();
-  errorMsg.textContent = '';
-
-  if (username.length < 3) {
-    errorMsg.textContent = 'Username must be at least 3 characters';
-    return;
-  }
-
-  try {
-    // Check if username exists (case insensitive)
-    const usernameQuery = await db.collection('users')
-      .where('usernameLower', '==', username.toLowerCase())
-      .limit(1)
-      .get();
-
-    if (!usernameQuery.empty &&
-        usernameQuery.docs[0].id !== window.userId) {
-      errorMsg.textContent = 'Username already taken';
-      return;
-    }
-
-    // Save username
-    await db.collection('users').doc(window.userId).set({
-      username: username,
-      usernameLower: username.toLowerCase() // for case-insensitive search
-    }, { merge: true });
-
-    localStorage.setItem('displayName', username);
-    document.getElementById('username-modal').style.display = 'none';
-    updateLeaderboard();
-  } catch (error) {
-    console.error('Error saving username:', error);
-    errorMsg.textContent = 'Error saving username. Please try again.';
-  }
-};
-
-    // Skip button handler
-  document.getElementById('skip-username').onclick = () => {
-    modal.style.display = 'none';
-  };
-}
-
-// use translations
-async function updateLeaderboard() {
-  const leaderboardList = document.getElementById('leaderboard-list');
-  const userRankElement = document.getElementById('user-rank');
-  const lang = document.getElementById('language').value;
-  const t = translations[lang]?.leaderboard || translations.en.leaderboard;
-
-  leaderboardList.innerHTML = `<div class="loading">${t.loading}</div>`;
-  userRankElement.innerHTML = '';
-
-  try {
-    const { topUsers, currentRank, currentShares } = await getLeaderboard();
-    const currentUsername = localStorage.getItem('displayName') || t.you;
-    const currentUserId = auth.currentUser?.uid || window.userId;
-
-    leaderboardList.innerHTML = '';
-
-    if (topUsers.length === 0) {
-      leaderboardList.innerHTML = `<div class="empty">${t.noData}</div>`;
-      userRankElement.innerHTML = `
-        <div class="user-rank-header">${t.yourDisplayName}: ${currentUsername}</div>
-        <div>${t.shareToAppear}</div>
-        <button onclick="showUsernameModal()" class="edit-username">
-          ${t.changeName}
-        </button>
-      `;
-      return;
-    }
-
-    // Display top users
-    topUsers.forEach((user, index) => {
-      const item = document.createElement('div');
-      item.className = `leaderboard-item ${user.id === currentUserId ? 'highlight' : ''}`;
-
-      let badge = '';
-      if (index === 0) badge = '🥇 ';
-      else if (index === 1) badge = '🥈 ';
-      else if (index === 2) badge = '🥉 ';
-
-      const displayName = user.id === currentUserId
-        ? `${currentUsername || t.you} 🐥✨`
-        : (user.username || `${t.user} ${user.id.substring(0, 4)}`);
-
-      item.innerHTML = `
-        <span>${badge}#${index + 1} ${displayName}</span>
-        <span>${user.shares || 0} ${t.shares}</span>
-      `;
-      leaderboardList.appendChild(item);
-    });
-
-    // User rank section (matches gongcha-felix style)
-    userRankElement.innerHTML = `
-      <div class="user-rank-header">${t.yourDisplayName}: ${currentUsername}🐥</div>
-      ${currentRank ?
-        `<div>${t.yourRank}: #${currentRank}</div>
-         <div>${t.yourShares}: ${currentShares}  (🎯100+)</div>` :
-        `<div>${t.shareToAppear}</div>`
-      }
-      <button onclick="showUsernameModal()" class="edit-username">
-        ${t.changeName}
-      </button>
-    `;
-
-     // After getting currentShares:
-     updateProgressBar(currentShares);
-
-  } catch (error) {
-    console.error('Error updating leaderboard:', error);
-    leaderboardList.innerHTML = `<div class="error">${t.error}</div>`;
-    userRankElement.innerHTML = `
-      <div class="error">${t.error}</div>
-      <button onclick="showUsernameModal()" class="edit-username">
-        ${t.changeName}
-      </button>
-    `;
-  }
-}
-
-// Modified  recordShare function - FIREBASE VER  (With Batching + LocalStorage)
-async function recordShare() {
-  try {
-    // 1. Client-side counting
-    let pendingShares = parseInt(localStorage.getItem('pendingShares')) || 0;
-    pendingShares++;
-    localStorage.setItem('pendingShares', pendingShares);
-
-    // 2. Only write to Firestore every 3 shares (reduces writes by 66%)
-    if (pendingShares >= 3) {
-      const userId = auth.currentUser?.uid || window.userId;
-      if (!userId) return false;
-
-      const userRef = db.collection('users').doc(userId);
-      
-      // Batch update (single write)
-      await userRef.set({
-        username: localStorage.getItem('displayName') || 'Anonymous',
-        usernameLower: (localStorage.getItem('displayName') || 'anonymous').toLowerCase(),
-        shares: firebase.firestore.FieldValue.increment(pendingShares), // Batch increment
-        lastShared: new Date().toISOString(),
-        userId: userId
-      }, { merge: true });
-
-      // 3. Reset counter after successful write
-      pendingShares = 0;
-      localStorage.removeItem('pendingShares');
-    }
-
-    // 4. Update UI immediately using local count (no wait for Firestore)
-    const { currentShares } = await getLeaderboard();
-    const totalShares = (currentShares || 0) + pendingShares;
-    updateProgressBar(totalShares);
-
-    return true;
-  } catch (error) {
-    console.error('Error recording share:', error);
-    return false;
-  }
-}
-
-// Update the getLeaderboard function - FIREBASE VER
-async function getLeaderboard() {
-  try {
-    const lang = document.getElementById('language').value;
-    const t = translations[lang]?.leaderboard || translations.en.leaderboard;
-
-    // Get all users ordered by shares (we'll handle ranking client-side)
-    const usersQuery = await db.collection('users')
-      .orderBy('shares', 'desc')
-      .get();
-
-    if (usersQuery.empty) {
-      return {
-        topUsers: [],
-        currentRank: null,
-        currentShares: 0,
-        allUsers: []
-      };
-    }
-
-    const allUsers = usersQuery.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
-
-    // Get top 20 users
-    const topUsers = allUsers.slice(0, 20);
-
-    // Find current user's rank and shares
-    let currentRank = null;
-    let currentShares = 0;
-    const currentUserId = auth.currentUser?.uid || window.userId;
-
-    if (currentUserId) {
-      const currentUser = allUsers.find(u => u.id === currentUserId);
-      if (currentUser) {
-        currentShares = currentUser.shares || 0;
-        // Calculate rank (index + 1 since array is sorted)
-        currentRank = allUsers.findIndex(u => u.id === currentUserId) + 1;
-      }
-    }
-
-    return {
-      topUsers,
-      currentRank,
-      currentShares,
-      allUsers
-    };
-  } catch (error) {
-    console.error('Error getting leaderboard:', error);
-    const lang = document.getElementById('language').value;
-    const t = translations[lang]?.leaderboard || translations.en.leaderboard;
-    return {
-      topUsers: [],
-      currentRank: null,
-      currentShares: 0,
-      allUsers: []
-    };
-  }
-}
-
-// 2. Modify toggleLeaderboard() (keeps existing functionality)
-function toggleLeaderboard() {
-  const popup = document.getElementById('leaderboard-popup');
-
- // SIMPLEST APPROACH - Just toggle the class
- popup.classList.toggle(LEADERBOARD_ACTIVE_CLASS);
-
-  // Keep your existing display logic (works alongside the class)
-  if (popup.style.display === 'flex') {
-    popup.style.display = 'none';
-  } else {
-    popup.style.display = 'flex';
-    updateLeaderboard();
-  }
-}
-
-// Share user rankings to Twitter
-async function shareMyRanking() {
-  if (isSharing) return;
-  isSharing = true;
-
-  const lang = document.getElementById('language').value;
-  const t = translations[lang]?.leaderboard || translations.en.leaderboard;
-
-  try {
-    // Get ranking data
-    const { currentRank, currentShares } = await getLeaderboard();
-    const username = localStorage.getItem('displayName') || t.you;
-
-    const text = currentRank
-      ? `🏆 (${username}) I'm ranked #${currentRank} with ${currentShares} shares on the #FELIXxLVCRUISE27 Leaderboard! 🚢🐥\n\n❣️ Join me in supporting #FELIX #LVCRUISE27:\n\n👉 https://lvcruise27-felix.netlify.app`
-      : `❣️ Check out the #FELIXxLVCRUISE27 Post Generator!\n\nHelp trend #FELIX #LVCRUISE27 🚢🐥\n\n👉 https://lvcruise27-felix.netlify.app`;
-
-    const encodedText = encodeURIComponent(text);
-    const webUrl = `https://twitter.com/intent/tweet?text=${encodedText}`;
-
-    // Universal Mobile Handler
-    if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-      // 1. First try with location.href (works on most browsers)
-      try {
-        let appUrl;
-        if (/Android/i.test(navigator.userAgent)) {
-          appUrl = `intent://post?text=${encodedText}#Intent;scheme=twitter;package=com.twitter.android;end`;
-        } else {
-          appUrl = `twitter://post?message=${encodedText}`;
-        }
-
-        // Create temporary anchor tag
-        const link = document.createElement('a');
-        link.href = appUrl;
-        link.style.display = 'none';
-        document.body.appendChild(link);
-
-        // Simultaneous approaches
-        link.click(); // Primary method
-        window.location.href = appUrl; // Secondary method
-
-        // Fallback with precise timing
-        setTimeout(() => {
-          if (!document.hidden) return; // App opened successfully
-          document.body.removeChild(link);
-          window.open(webUrl, '_blank'); // Final fallback
-        }, 300);
-
-      } catch (e) {
-        window.open(webUrl, '_blank');
-      }
-    }
-    // Desktop
-    else {
-      window.open(webUrl, '_blank', 'noopener,noreferrer');
-    }
-
-    // Track and record
-    gtag('event', 'share_ranking', {
-      'event_category': 'engagement',
-      'event_label': 'Shared Leaderboard Position'
-    });
-    await recordShare();
-
-  } catch (error) {
-    console.error('Error sharing ranking:', error);
-    window.open(webUrl, '_blank'); // Ultimate fallback
-  } finally {
-    setTimeout(() => { isSharing = false; }, 1000);
+  if (localShares >= 100) {
+    progressFill.style.backgroundColor = '#2E7D32';
   }
 }
 
@@ -3187,70 +2372,22 @@ updateTimes();
 setInterval(updateTimes, 1000);
 // ===== END COUNTDOWN =====
 
-// Update progress bar function
-function updateProgressBar(currentShares) {
-  const progressFill = document.getElementById('progress-fill');
-  if (!progressFill) return;
-  
-  const progressPercent = Math.min(100, currentShares);
-  progressFill.style.width = `${progressPercent}%`;
-  
-  // Change to darker green when complete
-  if (currentShares >= 100) {
-    progressFill.style.backgroundColor = '#2E7D32';
-  }
-}
-
    // Initialize everything when page loads
- // Modified initialization with proper auth flow
  window.addEventListener('DOMContentLoaded', async () => {
   // 1. First initialize UI with default (English) content
   changeLanguage();
 
-  // 2. Initialize Firebase (with error handling)
-  try {
-     // First ensure authentication
-    const authResult = await auth.signInAnonymously();
-    window.userId = authResult.user.uid;
-    localStorage.setItem('userId', window.userId);
-
-    // Ensure username is set
-    await checkUsername();
-  } catch (error) {
-    console.error("Auth error, falling back:", error);
-    window.userId = localStorage.getItem('userId') ||
-                   Math.random().toString(36).substring(2) + Date.now().toString(36);
-    localStorage.setItem('userId', window.userId);
-    // Ensure username is set even if auth fails
-    await checkUsername();
-  }
-
-  // 3. Load non-critical elements after short delay
+  // 2. Load non-critical elements after short delay
   setTimeout(() => {
     setupFloatingChick();
     fetchSentences().catch(e => console.error("Sentence load error:", e));
-    updateLeaderboard().catch(e => console.error("Leaderboard error:", e));
   }, 100);
+
+  // 3. Initialize progress bar
+  updateProgressBar();
 
   // 4. Set focus to generate button
   document.getElementById("generate-btn").focus();
-
-  // Maintain your existing leaderboard click handler
-  const leaderboardPopup = document.getElementById('leaderboard-popup');
-  const leaderboardContent = document.querySelector('.leaderboard-content');
-
-  if (leaderboardPopup && leaderboardContent) {
-    leaderboardPopup.addEventListener('click', function(e) {
-      if (e.target === this) {
-        toggleLeaderboard();
-        e.stopImmediatePropagation();
-      }
-    });
-
-    leaderboardContent.addEventListener('click', function(e) {
-      e.stopPropagation();
-    });
-  }
 });
 
 
@@ -3274,7 +2411,6 @@ function updateProgressBar(currentShares) {
 </div>
 
   <!-- external Logo -->
- <!-- Simplified logo HTML -->
  <a
  href="https://twitter.com/intent/tweet?text=%F0%9F%95%B9%EF%B8%8F%20Check%20out%20%23FELIX%20POST%20GENERATOR%20to%20quickly%20make%20new%20posts%20for%20%23FELIXxLVCRUISE27%20%F0%9F%92%AC%0A%0A%F0%9F%94%97%20https%3A%2F%2Flvcruise27
 -felix.netlify.app%2F%20%F0%9F%91%88%0A%0AYou%20can%20click%20'Generate'%20to%20get%20random%20sentences%20with%20pre-filled%20tags%20%26%20share%20faster%20%F0%9F%9B%B3%EF%B8%8F%0A%0A%F0%9F%94%81%20Always%20REPOST%20others'%20posts%20%26%20replies%20%F0%9F%94%81%0A%0AFIGHTING%20%F0%9F%90%A3%F0%9F%8F%B0"
@@ -3287,50 +2423,5 @@ function updateProgressBar(currentShares) {
 </a>
 
 
-<div id="leaderboard-popup" class="leaderboard-popup">
-  <div class="leaderboard-content">
-    <div class="leaderboard-header">
-      <h3>🏆 Leaderboard 🏆</h3>
-      <button class="close-leaderboard-top" onclick="toggleLeaderboard()">✖</button>
-    </div>
-
-    <!-- Scrollable user list container -->
-    <div class="leaderboard-list-container">
-      <div id="leaderboard-list"></div>
-    </div>
-
-    <!-- Fixed bottom section -->
-    <div class="leaderboard-footer">
-      <div id="user-rank" class="user-rank"></div>
-      <button class="share-ranking-btn" onclick="shareMyRanking()" data-translate="shareButton">
-        🐦 Share My Ranking
-      </button>
-    </div>
-  </div>
-</div>
-
-<div id="username-modal" class="modal">
-  <div class="modal-content">
-    <h3 data-translate="modalTitle">Set Your Display Name (X/Twitter @username)</h3>
-    <p data-translate="modalDescription">Choose how you'll appear on the leaderboard:</p>
-    <input
-      type="text"
-      id="username-input"
-      maxlength="20"
-      data-translate="modalPlaceholder"
-      data-translate-attr="placeholder"
-      placeholder="Your display name (e.g., Pixie123)"
-    >
-    <div class="modal-buttons">
-      <button id="save-username" data-translate="saveButton">Save ✔</button>
-      <button id="skip-username" data-translate="skipButton">Skip ✖</button>
-    </div>
-  </div>
-</div>
-<script>
-// Brave Browser ad blocking share to x button Specific Fix:
-  if (navigator.brave) {
-    document.getElementById('share-btn').style.display = 'flex';
-  }</script>
 </body>
 </html>
